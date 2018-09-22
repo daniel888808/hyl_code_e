@@ -1,0 +1,25 @@
+* {
+    font-family: 微軟正黑體;
+}
+
+.maxWidth {
+    max-width: 33.33%;
+}
+
+.minHeight {
+    min-Height: calc(100vh - ( 65px + 48px));
+}
+
+.bgdark {
+    background-color: #212529;
+}
+
+.fontsm {
+    font-size: 15px;
+}
+
+.block {
+    display: block!important;
+}
+
+/* Your custom styles */

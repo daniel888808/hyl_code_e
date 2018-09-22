@@ -1,0 +1,44 @@
+.maxWith {
+    min-width: 30.33%;
+}
+
+
+.maxHeight {
+    min-Height: calc(100vh - ( 46px + 86px));
+}
+
+.bgdark {
+    background-color: #212529;
+}
+
+.fontsm {
+    font-size: 35px;
+}
+
+.font30 {
+    font-size: 30px;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.overFlow {
+    overflow: scroll;
+    max-height: 550px;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: white;
+}
+
+.select-wrapper input.select-dropdown {
+    font-size: 30px
+}
+
+[type=checkbox]+label,
+[type=radio]+label {
+    font-size: 25px
+}
+
+/* Your custom styles */

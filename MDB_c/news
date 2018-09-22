@@ -1,0 +1,31 @@
+            <div class="container p-2 mt-0">
+                <p class="text-center">最新消息</p>
+                <div class="row">
+                
+                <div class="col-sm-12"><p>news1</p></div>
+                <div class="col-sm-12"><p>news2</p></div>
+                <div class="col-sm-12"><p>news3</p></div>
+                
+                </div>
+        </div>
+        
+        
+        
+        
+        
+        <div class="mt-1">
+                    <a href="submit.html"><button type="button" class="btn btn-teal darken-3 m-0 w-33"><i class="fa fa-building" aria-hidden="true"></i></br>公設<br>維修</button></a>
+                    <a href="submit.html"><button type="button" class="btn btn-red m-0 w-33"><i class="fa fa-bed" aria-hidden="true"></i></br>家具<br>維修</button></a>
+                    <a href="submit.html"><button type="button" class="btn btn-deep-purple darken-3 m-0 w-33"><i class="fa fa-bug" aria-hidden="true"></i></br>清潔<br>服務</button></a>
+                </div>
+                <div class="mt-1">
+                    <a href="submit.html"><button type="button" class="btn btn-warning m-0 w-48"><i class="fa fa-paint-brush" aria-hidden="true"></i></br>油漆工程</button></a>
+                    <a href="submit.html"><button type="button" class="btn btn-pink m-0 w-48"><i class="fa fa-info" aria-hidden="true"></i></br>其他維修</button></a>
+                </div>
+        
+        
+        
+        
+        
+        
+        

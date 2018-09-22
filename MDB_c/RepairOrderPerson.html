@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>RepairOrderPerson</title>
+    <!-- Font Awesome -->
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/star.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body class="fixed-sn black-skin">
+
+    <header>
+        <div id="slide-out" class="side-nav sn-bg-4 fixed">
+            <ul class="custom-scrollbar">
+                <!-- Logo -->
+                <li>
+                    <div class="logo-wrapper waves-light">
+                        <a href="#"><img src="http://www.huayulien.com/wp-content/uploads/2015/04/H-logo-e1429491876768.png" class="img-fluid flex-center"></a>
+                    </div>
+                </li>
+                <!--/. Logo -->
+                <!--Social-->
+                <li>
+                    <ul class="social">
+                        <li><a href="#" class="icons-sm fb-ic"><i class="fa fa-facebook"> </i></a></li>
+                        <li><a href="#" class="icons-sm pin-ic"><i class="fa fa-pinterest"> </i></a></li>
+                        <li><a href="#" class="icons-sm gplus-ic"><i class="fa fa-google-plus"> </i></a></li>
+                        <li><a href="#" class="icons-sm tw-ic"><i class="fa fa-twitter"> </i></a></li>
+                    </ul>
+                </li>
+                <!--/Social-->
+                <!--Search Form-->
+                <li>
+                    <form class="search-form" role="search">
+                        <div class="form-group md-form mt-3 pt-1 waves-light">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                    </form>
+                </li>
+                <!--/.Search Form-->
+                <!-- Side navigation links -->
+                <li>
+                    <ul class="collapsible collapsible-accordion">
+                        <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-chevron-right"></i> 首頁<i class="fa fa-angle-down rotate-icon"></i></a>
+                            <div class="collapsible-body">
+                                <ul class="list-unstyled">
+                                    <li><a href="#" class="waves-effect"><i class="fa fa-hand-pointer-o"></i>新增維修單</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect"><i class="fa fa-eye"></i>維修狀態追蹤</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-envelope-o"></i> 客服中心<i class="fa fa-angle-down rotate-icon"></i></a>
+                            <div class="collapsible-body">
+                                <ul class="list-unstyled">
+                                    <li><a href="#" class="waves-effect">FAQ</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">Write a message</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!--/. Side navigation links -->
+            </ul>
+            <div class="sidenav-bg mask-strong"></div>
+        </div>
+        <!--/. Sidebar navigation -->
+        <!-- Navbar -->
+        <nav class="navbar bgdark text-white py-1">
+            <a class="navbar-brand text-right" href="testindex.html">
+            <i class="fa fa-chevron-left text-white" aria-hidden="true"></i>
+        </a>
+            <span class="h6 m-auto pr-3">
+                   維修單
+            </span>
+        </nav>
+    </header>
+
+    <!-- /Start your project here-->
+    <div class="container mt-3">
+        <div class="form-group">
+            <form>
+                <!--Textarea with icon prefix-->
+                <div class="md-form my-0">
+                    <label for="textareaPrefix" class="mb-0">你的狀況</label>
+                    <i class="fa fa-pencil prefix"></i>
+                    <textarea type="text" id="textareaPrefix" class="form-control md-textarea my-0" rows="5" readonly="readonly">水龍頭壞掉，廚房磁磚破裂，客廳牆壁龜裂</textarea >
+						    
+						</div>
+                    
+                        <label for="time" class="mt-1">您方便的時間:</label>
+                        <div>
+                            日期:<input type="text" class="form-control my-0" id="month1" placeholder="Enter month" readonly="readonly" value="03/08/2018 4:00PM">
+								<!--<label>Example label</label> -->
+						</div>
+                        <div>
+                            維修內容:<input type="text" class="form-control my-0" id="month1" placeholder="Enter month" readonly="readonly" value="更換新水龍頭、補瓷磚 重新粉刷">
+								<!--<label>Example label</label> -->
+						</div>
+						<div>
+                            工時:<input type="text" class="form-control my-0" id="month1" placeholder="Enter month" readonly="readonly" value="4小時">
+								<!--<label>Example label</label> -->
+						</div>
+                        </br>
+                        
+						<div>
+                            維修狀態追蹤:<input type="text" class="form-control my-0" id="month1" placeholder="Enter month" readonly="readonly" value="已完成待簽收">
+								<!--<label>Example label</label> -->
+						</div>
+						
+						<div>評分:</div>
+                        
+                        <div>
+                            <!--沒辦法就暫時用這個簡單版的 -->
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <!--沒辦法就暫時用這個簡單版的 -->
+                        </div>
+                            
+                            
+                    
+
+
+                    <a href="testindex.html"><button type="button" class="btn btn-primary mt-3">確定</button></a>
+                    
+                    <a href="contact.html"><button type="button" class="btn btn-warning mt-3">回報問題</button></a>
+                    </form>
+                    </div>
+                    </div>
+
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<script>
+    // SideNav Button Initialization
+    $(".button-collapse").sideNav();
+    // SideNav Scrollbar Initialization
+    var sideNavScrollbar = document.querySelector('.custom-scrollbar');
+    Ps.initialize(sideNavScrollbar);
+
+    // SideNav Options
+    $(document).ready(function() {
+        $('.mdb-select').material_select();
+    });
+
+    var input = $('#manual-operations-input').pickatime({
+        autoclose: true,
+        'default': 'now'
+    });
+
+    // Manually toggle to the minutes view
+    $('#check-minutes').click(function(e) {
+        e.stopPropagation();
+        input.pickatime('show').pickatime('toggleView', 'minutes');
+    });
+    
+  
+</script>
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>華友聯submit</title>
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Start your project here-->
+    <header>
+        <!-- Sidebar navigation -->
+        <div id="slide-out" class="side-nav sn-bg-4 fixed">
+            <ul class="custom-scrollbar">
+                <!-- Logo -->
+                <li>
+                    <div class="logo-wrapper waves-light">
+                        <a href="#"><img src="http://www.huayulien.com/wp-content/uploads/2015/04/H-logo-e1429491876768.png" class="img-fluid flex-center"></a>
+                    </div>
+                </li>
+                <!--/. Logo -->
+                <!--Social-->
+                <li>
+                    <ul class="social">
+                        <li><a href="#" class="icons-sm fb-ic"><i class="fa fa-facebook"> </i></a></li>
+                        <li><a href="#" class="icons-sm pin-ic"><i class="fa fa-pinterest"> </i></a></li>
+                        <li><a href="#" class="icons-sm gplus-ic"><i class="fa fa-google-plus"> </i></a></li>
+                        <li><a href="#" class="icons-sm tw-ic"><i class="fa fa-twitter"> </i></a></li>
+                    </ul>
+                </li>
+                <!--/Social-->
+                <!--Search Form-->
+                <li>
+                    <form class="search-form" role="search">
+                        <div class="form-group md-form mt-0 pt-1 waves-light">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                    </form>
+                </li>
+                <!--/.Search Form-->
+                <!-- Side navigation links -->
+                <li>
+
+                    <div class="sidenav-bg mask-strong"></div>
+        </div>
+        <!--/. Sidebar navigation -->
+        <!-- Navbar -->
+
+        <nav class="navbar bgdark text-white py-1">
+            <a class="navbar-brand text-right" href="testindex.html">
+            <i class="fa fa-chevron-left text-white" aria-hidden="true"></i>
+        </a>
+            <span class="h6 m-auto pr-3">
+                   維修單
+            </span>
+        </nav>
+        <!-- /.Navbar -->
+    </header>
+
+
+
+
+    <!-- /Start your project here-->
+    <div class="container px-3 mt-2">
+        <div class="form-group">
+            <form>
+                <div class="row">
+                    <div class="col-4">
+                        <label class="font-weight-bold">維修類型:</label>
+                    </div>
+                    <div class="col-8">
+                        <select class="mdb-select">
+                        <option value="" disabled selected>水電報修</option>
+                        <option value="1">水電報修</option>
+                        <option value="2">電機相關</option>
+                        <option value="3">安裝工程</option>
+                        <option value="4">公設維修</option>
+                        <option value="5">家具維修</option>
+                        <option value="6">清潔服務</option>
+                        <option value="7">油漆工程</option>
+                        <option value="8">其他維修</option>
+                    </select>
+                    </div>
+                </div>
+                <label for="time" class="font-weight-bold">請輸入您方便的時間</label>
+                <div class="row my-0">
+                    <div class="col-4">
+                        <input type="date" class="form-control" id="month1" placeholder="Enter month">
+                    </div>
+                    <div class="col-4">
+                        <input placeholder="起始時間" type="text" id="input_starttime1-1" class="form-control timepicker">
+                    </div>
+                    <div class="col-4">
+                        <input placeholder="結束時間" type="text" id="input_starttime1-2" class="form-control timepicker">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10"></div>
+                    <div class="col-2">
+                        <a class=""><i class="fa fa-plus" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label class="font-weight-bold ">待修狀況:</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" name="" length="30" />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label class="font-weight-bold ">說明:</label>
+
+                    <div class="md-form mt-1 mb-3">
+                        <i class="fa fa-pencil prefix grey-text mt-2"></i>
+                        <textarea type="text" id="materialFormContactMessageEx" class="form-control md-textarea ml-4" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="md-form row">
+                        <div class="file-field">
+                            <div class="btn btn-primary btn-sm float-left">
+                                <span>選擇檔案</span>
+                                <input type="file" multiple>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="pipe.jpg" class="img-fluid" alt=""></img>
+                </div>
+
+
+                <a href="testindex.html"><button type="button"  class="btn btn-primary rounded">提交</button></a>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <script>
+        // SideNav Button Initialization
+        $(".button-collapse").sideNav();
+        // SideNav Scrollbar Initialization
+        var sideNavScrollbar = document.querySelector('.custom-scrollbar');
+        Ps.initialize(sideNavScrollbar);
+        // SideNav Options
+        $(document).ready(function() {
+            $('.mdb-select').material_select();
+        });
+
+        var input = $('#manual-operations-input').pickatime({
+            autoclose: true,
+            'default': 'now'
+        });
+
+        // Manually toggle to the minutes view
+        $('#check-minutes').click(function(e) {
+            e.stopPropagation();
+            input.pickatime('show').pickatime('toggleView', 'minutes');
+        });
+
+        //時間
+        $('#input_starttime1-1').pickatime({});
+        $('#input_starttime1-2').pickatime({});
+        $('#input_starttime2-1').pickatime({});
+        $('#input_starttime2-2').pickatime({});
+    </script>
+</body>
+
+</html>
