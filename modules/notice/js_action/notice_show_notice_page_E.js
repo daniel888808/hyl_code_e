@@ -4,7 +4,7 @@ class notice_show_notice_page_E extends ActionHandler {
         this.position_id = position_id;
     }
     prepareArgs() {
-        this.php_action = "do_select_action";
+        this.php_action = "do_select_action_E";
         this.php = true;
     }
 
@@ -15,48 +15,70 @@ class notice_show_notice_page_E extends ActionHandler {
         try {
             if (allDatas['status_code'] === 0) {
                 for (var allData in allDatas['data_set']) {
-                    console.log(allDatas['data_set'][allData]);
-                    for (var oneDate in allDatas['data_set'][allData][3]) {
-                        var end_datetime = allDatas['data_set'][allData][3][oneDate]['reservetime'].substring(5, 7) + "/" + allDatas['data_set'][allData][3][oneDate]['reservetime'].substring(8, 10);
-                        var notice_title;
-                        // console.log(end_datetime);
-                        if (allDatas['data_set'][allData][3][oneDate]['repair_content'].length > 8) {
-                            notice_title = allDatas['data_set'][allData][3][oneDate]['repair_content'].substring(0, 8) + "...";
+                    var buildingName = allDatas['data_set'][allData]['building'][0]['name'];
+                    var caseNamech = allDatas['data_set'][allData]['case']['namech'];
+                    var householdNumber = allDatas['data_set'][allData]['household'][0]['number'];
+                    var caseTitle = allDatas['data_set'][allData]['case']['title'];
+
+                    if (allDatas['data_set'][allData]['repair'] === []) {
+                        return;
+                    }
+                    for (var repair in allDatas['data_set'][allData]['repair']) {
+                        var startTime = allDatas['data_set'][allData]['case']['start_datetime'];
+
+
+                        startTime = startTime.substring(0, 4) + "/" + startTime.substring(5, 7) + "/" + startTime.substring(8, 10);
+                        if (caseTitle.length > 6) {
+                            caseTitle = caseTitle.substring(0, 7) + "...";
                         }
                         else {
-                            notice_title = allDatas['data_set'][allData][3][oneDate]['repair_content'];
+                            caseTitle = caseTitle;
                         }
-                        // console.log(allDatas['data_set'][allData][3][oneDate]['repair_content']);
-                        // console.log(notice_title);
-                        // console.log(end_datetime);
+
                         data = data + `
-                                  <div class="list-group font-weight-bold pt-0">
-                                      <a onclick="(new notice_show_select_page('notice','show_select_page','body','${allDatas['data_set'][allData][1][oneDate]['id']}','${allDatas['data_set'][allData][1][oneDate]['type']}','${allDatas['data_set'][allData][0]['content']}','${allDatas['data_set'][allData][3][oneDate]['repair_content']}','${allDatas['data_set'][allData][0]['content']}','${allDatas['data_set'][allData][2]['name']}','${end_datetime}','${allDatas['userData'][2][0]['name']}','${allDatas['userData'][1][0]['number']}')).run()">
+                                 <div class="list-group font-weight-bold h3">
+                                      <a onclick="(new notice_show_select_page_E('notice','show_select_page_E','body','buildingName','startTime','householdNumber',)).run()">
                                              `;
-                        if (allDatas['data_set'][allData][1][oneDate]['type'] === "finish") {
-                            data = data + `<div class="list-group-item text-dark py-2 list-group-item-warning">${notice_title} <span class="float-right"> 維修單完成 ${end_datetime} </span></div>`;
+                        if (allDatas['data_set'][allData]['case']['namech'] === "水電報修") {
+                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
                         }
-                        else if (allDatas['data_set'][allData][1][oneDate]['type'] === "confirm") {
-                            data = data + `<div class="list-group-item text-dark py-2 list-group-item-success">${notice_title} <span class="float-right"> 時間確認 ${end_datetime} </span></div>`;
+                        else if (allDatas['data_set'][allData]['case']['namech'] === "電機相關") {
+                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
                         }
-                        else if (allDatas['data_set'][allData][1][oneDate]['type'] === "cancel") {
-                            data = data + `<div class="list-group-item text-white py-2 list-group-item- red accent-4s">${notice_title} <span class="float-right"> 取消維修單 ${end_datetime} </span></div>`;
+                        else if (allDatas['data_set'][allData]['case']['namech'] === "安裝工程") {
+                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
+                        }
+                        else if (allDatas['data_set'][allData]['case']['namech'] === "公設維修") {
+                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
+                        }
+                        else if (allDatas['data_set'][allData]['case']['namech'] === "家具維修") {
+                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
+                        }
+                        else if (allDatas['data_set'][allData]['case']['namech'] === "清潔服務") {
+                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
+                        }
+                        else if (allDatas['data_set'][allData]['case']['namech'] === "油漆工程") {
+                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
+                        }
+                        else if (allDatas['data_set'][allData]['case']['namech'] === "其他維修") {
+                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
                         }
                         else {
                             data = '查無值...';
                         }
                         data = data + `     
-                                        </a>     
-                                  </div>`;
+                                        </a> </div>`;
 
-                        data = data.slice(5);
+                        data = data.slice(3);
+
                     }
+
                 }
-                console.log(data);
             }
             else {
-                data = "<h1>此帳號無維修通知</h1>";
+                data = "<h1>目前無通知</h1>";
             }
+
         }
         catch (e) {
             console.log(e);
@@ -75,7 +97,7 @@ class notice_show_notice_page_E extends ActionHandler {
         //             </div>
 
         //           `;
-        document.getElementById(this.position_id).innerHTML = data;
+        document.getElementById('notice').innerHTML = data;
     }
     ajax_error(xhttp) {
         // console.log(xhttp.responseText);

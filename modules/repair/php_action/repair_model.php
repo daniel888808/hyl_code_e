@@ -57,6 +57,36 @@
             return $return_value;
 
         }
+        public function get_something_from_applydate($something,$where){
+            $sql ="SELECT $something FROM `applydate` WHERE $where";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchall();
+            if ($result != null) {
+                 $return_value = $result;
+             }
+            return $return_value;
+
+        }
+        public function check_reservetime($case_id){
+            $sql ="SELECT reservetime FROM `repair_history_profile` WHERE case_id = $case_id ORDER BY `repair_history_profile`.`id` DESC LIMIT 1";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchall();
+            $return_value = $result;
+            return $return_value;
+
+        }
+        public function get_last_repair_history_id($case_id){
+            $sql ="SELECT id FROM `repair_history_profile` WHERE case_id = $case_id ORDER BY `repair_history_profile`.`id` DESC LIMIT 1";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchall();
+            $return_value = $result;
+            return $return_value;
+
+        }
+        
     }
     
 ?>

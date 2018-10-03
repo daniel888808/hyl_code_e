@@ -21,7 +21,7 @@ class user_profile_do_update_action extends ActionHandler {
             if (obj['status_code'] == 10) {
                 //console.log("yyy");
                 this.loadModuleScript("home", "show_home_page");
-                (new home_show_home_page('home', 'show_home_page', 'body')).run();
+                //(new home_show_home_page('home', 'show_home_page', 'body')).run();
             }
             else if (obj['status_code'] == 20) {
                 document.getElementById("U_update_error").innerHTML = '<font color="#FF0000">無法更新! 此信箱已被註冊</font>';

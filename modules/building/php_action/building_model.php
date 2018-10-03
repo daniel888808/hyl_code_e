@@ -19,6 +19,33 @@
             return $return_value;
 
         }
+
+        public function get_id_from_construction_project($something,$manage_id){//取得用戶之建案名稱
+            $sql ="SELECT ".$something." FROM `construction_project` WHERE construction_project.manage_id=$manage_id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchall();
+            if ($result != null) {
+                $return_value = $result;
+            }
+            return $return_value;
+
+        }
+        
+        public function get_construction_project_data($something,$wherestament){//取得用戶之建案名稱
+            $sql ="SELECT ".$something." FROM `construction_project` WHERE ".$wherestament;
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchall();
+            if ($result != null) {
+                $return_value = $result;
+            }
+            return $return_value;
+
+        }
+        
+        
+        
     }
     
 ?>

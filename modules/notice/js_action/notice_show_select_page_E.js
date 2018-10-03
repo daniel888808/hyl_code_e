@@ -1,26 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+class notice_show_select_page_E extends ActionHandler {
+    constructor(module, action, position_id) {
+        super(module, action);
+        this.position_id = position_id;
+        // this.id = id;
+        // this.type = type;
+        // this.title = title;
+        // this.repair_title = repair_title;
+        // this.content = content;
+        // this.repairCompany = repairCompany;
+        // this.end_datetime = end_datetime;
+        // this.building = building_header + " " + building_footer;
+    }
+    prepareArgs() {
+        this.php = false;
+    }
+    showResult() {
+        var str = "";
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>華友聯index</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
-    <!-- Your custom styles (optional) -->
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/indexpage.css" rel="stylesheet">
-</head>
-
-<body class="fixed-sn black-skin ">
-
-    <!-- Start your project here-->
-    <header>
+        str += `
+       <header>
         <!-- Sidebar navigation -->
         <div id="slide-out" class="side-nav sn-bg-4 fixed">
             <ul class="custom-scrollbar">
@@ -216,7 +214,6 @@
     <div class="row mx-2">
         <div class="col-7">
             <div class="col-12 selectfont">
-
                 <select class="mdb-select selectfont">
                         <option value="" disabled selected>水電類廠商</option>
                         <option value="1">水電類廠商</option>
@@ -229,62 +226,60 @@
                         <option value="8">其他類廠商</option>
                     </select>
             </div>
-            <div>
-                <table class="table">
+            <table class="table">
+                <tr>
+                    <th scope="col" class="px-2 font30">廠商名稱</th>
+                    <th scope="col" class="pl-2 font30">廠商電話</th>
+                    <th scope="col" class="pl-2 font30">詳細資料</th>
+                </tr>
+                </thead>
+                <tbody>
                     <tr>
-                        <th scope="col" class="px-2 font30">廠商名稱</th>
-                        <th scope="col" class="pl-2 font30">廠商電話</th>
-                        <th scope="col" class="pl-2 font30">詳細資料</th>
+                        <th class="pt-4 pl-3 font30">洪彬水管</th>
+                        <td class="pt-4 font30">07-5512234</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a type="button" class="btn bg-transparent p-2" href="RepairCompony.html">
+                                                    <i class="fa fa-file fa-lg text-dark"></i>
+                                                </a>
+                            </div>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th class="pt-4 pl-3 font30">洪彬水管</th>
-                            <td class="pt-4 font30">07-5512234</td>
-                            <td>
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a type="button" class="btn bg-transparent p-2" href="RepairCompony.html">
+                    <tr>
+                        <th class="pt-4 pl-3 font30">勝福水電</th>
+                        <td class="pt-4 font30">07-5531158</td>
+                        <td>
+                            <div class="btn-group font30" role="group" aria-label="Basic example">
+                                <a type="button" class="btn bg-transparent p-2" href="RepairCompony.html">
                                                     <i class="fa fa-file fa-lg text-dark"></i>
                                                 </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="pt-4 pl-3 font30">勝福水電</th>
-                            <td class="pt-4 font30">07-5531158</td>
-                            <td>
-                                <div class="btn-group font30" role="group" aria-label="Basic example">
-                                    <a type="button" class="btn bg-transparent p-2" href="RepairCompony.html">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pt-4 pl-3 font30">雲通水電</th>
+                        <td class="pt-4 font30">07-5631158</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a type="button" class="btn bg-transparent p-2" href="RepairCompony.html">
                                                     <i class="fa fa-file fa-lg text-dark"></i>
                                                 </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="pt-4 pl-3 font30">雲通水電</th>
-                            <td class="pt-4 font30">07-5631158</td>
-                            <td>
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a type="button" class="btn bg-transparent p-2" href="RepairCompony.html">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pt-4 pl-3 font30">慶復水電</th>
+                        <td class="pt-4 font30">07-5531155</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a type="button" class="btn bg-transparent p-2" href="RepairCompony.html">
                                                     <i class="fa fa-file fa-lg text-dark"></i>
                                                 </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="pt-4 pl-3 font30">慶復水電</th>
-                            <td class="pt-4 font30">07-5531155</td>
-                            <td>
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a type="button" class="btn bg-transparent p-2" href="RepairCompony.html">
-                                                    <i class="fa fa-file fa-lg text-dark"></i>
-                                                </a>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class="col-5 font30">
             <div class="col-12 mt-4">
@@ -293,26 +288,29 @@
             <div class=" mt-2 ">
                 <div class="form-check">
                     <input class="form-check-input " name="group100" type="radio" id="radio100">
-                    <label class="form-check-label font30" for="radio100">2017/02/03 (07:00-09:00)<br><input placeholder="確定維修時間" type="text" id="input_starttime1" class="form-control timepicker"></label>
+                    <label class="form-check-label font30" for="radio100">2017/02/03 07:00</label>
                 </div>
             </div>
-            <div class=" mt-3 ">
+            <div class=" mt-2 ">
                 <div class="form-check">
                     <input class="form-check-input " name="group100" type="radio" id="radio101">
-                    <label class="form-check-label font30" for="radio101">2017/02/04 (11:00-15:00)<input placeholder="確定維修時間" type="text" id="input_starttime2" class="form-control timepicker"></label>
+                    <label class="form-check-label font30" for="radio101">2017/02/04 06:00</label>
                 </div>
             </div>
-            <div class=" mt-3 ">
+            <div class=" mt-2 ">
                 <div class="form-check">
                     <input class="form-check-input " name="group100" type="radio" id="radio102">
                     <label class="form-check-label font30" for="radio102">其他:</label>
                     <div class="form-check">
                         <div class="row my-0">
-                            <div class="col-6">
+                            <div class="col-5">
                                 <input type="date" class="form-control" id="month1" placeholder="Enter month">
                             </div>
-                            <div class="col-6">
-                                <input placeholder="時間" type="text" id="input_starttime3" class="form-control timepicker">
+                            <div class="col-3">
+                                <input placeholder="時間" type="text" id="input_starttime1" class="form-control timepicker">
+                            </div>
+                            <div class="col-3">
+                                <input placeholder="~" type="text" id="input_starttime1" class="form-control timepicker">
                             </div>
                         </div>
                     </div>
@@ -327,35 +325,10 @@
 
     </div>
     </div>
+  	`;
 
 
-    <!-- SCRIPTS -->
-    <!-- JQuery -->
-    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="js/mdb.min.js"></script>
-    <script>
-    </script>
 
-
-    <script>
-        $(function() {
-            $('#myTab a:last').tab('show')
-        });
-
-        $(document).ready(function() {
-            $('.mdb-select').material_select();
-        });
-        $('#input_starttime1').pickatime({});
-        $('#input_starttime2').pickatime({});
-        $('#input_starttime3').pickatime({});
-    </script>
-
-
-</body>
-
-</html>
+        document.getElementById(this.position_id).innerHTML = str;
+    }
+}

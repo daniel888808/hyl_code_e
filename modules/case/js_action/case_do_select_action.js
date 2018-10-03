@@ -23,7 +23,7 @@ class case_do_select_action extends ActionHandler {
                <header>
                             <!-- Navbar -->
                             <nav class="navbar bgdark text-white">
-                                <div onclick="(new home_show_home_page('home','show_home_page','body','record')).run()">
+                                <div onclick="(new home_show_home_page_E('home','show_home_page_E','body','record')).run()">
                                 <i class="fa fa-chevron-left text-white" aria-hidden="true"></i>
                                 </div>
                                 <span class="h6 m-auto pr-3 py-2"> 維修單</span>
@@ -75,7 +75,7 @@ class case_do_select_action extends ActionHandler {
 
                 }
                 content += `
-                    <a onclick="(new home_show_home_page('home','show_home_page','body','record')).run()"><button type="button" class="btn btn-primary mt-3">確定</button></a>
+                    <a onclick="(new home_show_home_page_E('home','show_home_page_E','body','record')).run()"><button type="button" class="btn btn-primary mt-3">確定</button></a>
                     </form>
                     </div>
                     </div>

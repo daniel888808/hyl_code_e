@@ -30,6 +30,19 @@
             return $return_value;
 
         }
+        public function get_something_from_public_facilities($something,$where){//從household_profile(戶)取
+            $sql ="SELECT ".$something." FROM `public_facilities` WHERE $where";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchall();
+            if ($result != null) {
+                $return_value = $result;
+            }
+            return $return_value;
+
+        }
+        
+        
     }
     
 ?>
