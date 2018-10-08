@@ -14,7 +14,7 @@
             $case_model = new case_model();
             $household_model= new household_model();
             $building_model= new building_model();
-            
+            $repair_model= new repair_model();
             
             
             
@@ -47,24 +47,24 @@
                 array_push($caseall,$hi);
             }
             
+            
+            
             for($i=0;$i<sizeof($household_user);$i++){
                 $hi=$case_model->get_something_from_case_profile("*","`status` = 'new' and household_user_id=".$household_user[$i][0]." ORDER BY `start_datetime` DESC");
                 array_push($casenew,$hi);
             }
             
             for($i=0;$i<sizeof($household_user);$i++){
-                $hi=$case_model->get_something_from_case_profile("*","`status` = 'new' and household_user_id=".$household_user[$i][0]." ORDER BY `start_datetime` DESC");
+                $hi=$case_model->get_something_from_case_profile("*","`status` = 'unfinish' and household_user_id=".$household_user[$i][0]);
                 array_push($caseunfin,$hi);
             }
             
-            //SELECT * FROM `case_profile` WHERE `status` = "new" and `household_user_id` = 1 order by `start_datetime`
-            //SELECT * FROM `case_profile` WHERE `status` = "unfinish" and `household_user_id` = 1 order by `start_datetime`
             
             
             
             $household_data = $household_model->get_something_from_household_profile("id,number","construction_project_id =".$building_id[0][0]);
             
-            
+            $reservetime=$repair_model->check_reservetime($case_id);
             
             
             

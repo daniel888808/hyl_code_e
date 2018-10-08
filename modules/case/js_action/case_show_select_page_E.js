@@ -74,10 +74,6 @@ class case_show_select_page_E extends ActionHandler {
                         </div>`;
 
 
-
-
-
-
                 for (var i = 0; i < ds.length; i++) {
                     if (ds[i] == null) {
                         //do nothing
@@ -98,7 +94,7 @@ class case_show_select_page_E extends ActionHandler {
                                                 <a href="">${ds[0][j]["title"]}</a>
                                             </th>
                                             <th class="py-1 fontsm">
-                                                <a href="">${ds[0][j][0]}</a>
+                                                <a href="">待完成</a>
                                             </th>
                                         </a>
                                     </tr>`;
@@ -107,11 +103,11 @@ class case_show_select_page_E extends ActionHandler {
                                 ns = sn(ds[i][j]["repair_type_id"]);
                                 contentb2 += `
                                     <tr class="">
-                                        <th class="py-1 fontsm "><a href="">${ns}</a></th>
-                                        <td class="py-1 fontsm "><a href="">${ds[i][j]["title"]}</a></td>
-                                        <td class="py-1 fontsm "><a href="">${na[0]["name"]}</a></td>
-                                        <td class="py-1 fontsm "><a onclick="(new case_show_case_page_E('case','show_case_page_E','body','${ds[i][j]["id"]}')).run();">A7-1</a></td>
-                                    </tr>`;
+                                        <th class="py-1 fontsm "><a >${ns}</a></th>
+                                        <td class="py-1 fontsm "><a >${ds[i][j]["title"]}</a></td>
+                                        <td class="py-1 fontsm "><a >${na[0]["name"]}</a></td>
+                                        <td class="py-1 fontsm "><a onclick="(new case_show_case_page_E('case','show_case_page_E','body','` + ds[i][j]["id"] + `')).run();">A7-1</a></td>
+                                    </tr>`; //${ds[i][j]["id"]}
                             }
                         }
                     }

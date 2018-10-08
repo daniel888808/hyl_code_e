@@ -7,6 +7,7 @@ class case_show_case_page_E extends ActionHandler {
     prepareArgs() {
         this.php = true;
         this.addArgs('case_id', this.case_id);
+        this.case_id = null;
     }
     ajax_success(xhttp) {
         try {
@@ -20,9 +21,15 @@ class case_show_case_page_E extends ActionHandler {
                 this.loadModuleScript("repair", "show_apply_date_E");
                 this.loadModuleScript("repair_company", "show_repair_company_E");
                 this.loadModuleScript("case", "show_repair_type_E");
+                this.loadModuleScript("case", "do_confirm_E");
+                this.loadModuleScript("case", "do_unfinish_E");
+                this.loadModuleScript("contact", "show_contact_E");
+                this.loadModuleScript("repair", "show_repair_history_E");
                 (new repair_show_apply_date_E('repair', 'show_apply_date_E', 'applydate', obj['rph_id'])).run();
-                (new repair_company_show_repair_company_E('repair_company', 'show_repair_company_E', 'repair_company', obj['case_data'][0]['repair_type_id'])).run();
-                (new case_show_repair_type_E('case', 'show_repair_type_E', 'repair_type', obj['case_data'][0]['repair_type_id'])).run();
+                //(new repair_company_show_repair_company_E('repair_company', 'show_repair_company_E', 'repair_company', obj['case_data'][0]['repair_type_id'])).run();
+                //(new case_show_repair_type_E('case', 'show_repair_type_E', 'repair_type', obj['case_data'][0]['repair_type_id'])).run();
+                (new contact_show_contact_E('contact', 'show_contact_E', 'contact', obj['case_data'][0]['id'])).run();
+                (new repair_show_repair_history_E('repair', 'show_repair_history_E', 'show_repair_history', obj['case_data'][0]['id'])).run();
                 var content = "";
                 content += `
                 <nav class="navbar bgdark text-white py-1">
@@ -46,7 +53,7 @@ class case_show_case_page_E extends ActionHandler {
                             <div class="col-4">
                                 <span></span>
                             </div>
-                            <div class="col-4">
+                            <div class="col-4" id="case_id" data-value= "` + obj['case_data'][0]['id'] + `">
                                 <span>編號: ` + obj['case_data'][0]['id'] + `</span>
                             </div>
                         </div>
@@ -57,7 +64,7 @@ class case_show_case_page_E extends ActionHandler {
                                 <span>受理日期:</span>
                                 <br>
                                 <span>`;
-                content += obj['case_data'][0]['start_datetime'];
+                content += st_time_to_min(obj['case_data'][0]['start_datetime']);
                 content += `</span>
                             </div>
                             <div class="col-4">
@@ -65,16 +72,18 @@ class case_show_case_page_E extends ActionHandler {
                                 <br>
                                 <span>`;
                 if (obj['case_data'][0]['end_datetime'] == null) {
-                    obj['case_data'][0]['end_datetime'] = '';
+                    content += '未完成';
                 }
-                content += obj['case_data'][0]['end_datetime'];
+                else {
+                    content += st_time_to_min(obj['case_data'][0]['end_datetime']);
+                }
                 content += `</span>
                             </div>
                             <div class="col-4">
                                 <span>保固期限:</span>
                                 <br>
                                 <span>`;
-                content += obj['warranty'];
+                content += st_time_to_date(obj['warranty']);
                 content += `</span>
                             </div>
                         </div>
@@ -137,82 +146,53 @@ class case_show_case_page_E extends ActionHandler {
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 border boxShadow">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="font30">施工日期</th>
-                                    <th class="font30">施工廠商</th>
-                                    <th class="font30">工時</th>
-                                    <th class="font30">類別</th>
-                                    <th class="font30">維修內容</th>
-                                    <th class="font30">維修進度</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                <tr>
-                                    <th class="font30" scope="row">9/29</th>
-                                    <td class="font30"><input type="text" id="new" class="form-control"></td>
-                                    <td class="font30"><input type="text" id="new" class="form-control"></td>
-                                    <td class="font30"><input type="text" id="new" class="form-control"></td>
-                                    <td class="font30"><input type="text" id="new" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td class="font30"></td>
-                                    <td class="font30"></td>
-                                    <td class="font30"></td>
-                                    <td class="font30"></td>
-                                    <td class="font30"></td>
-                                </tr>
-                                <tr>
-                                    <th class="font30" scope="row" colsoan="3">合計</th>
-                                    <td class="font30" colspan="2">XXX</td>
-                                </tr>
-                            </tbody>
-                            <!--Table body-->
-                        </table>
+                    <div class="col-12 border boxShadow" id="show_repair_history">
+                        
                     </div>
-                    <div class="col-12 ">
-                        <div class="row">
-                            <div class="col-12">
-                                <span>聯絡情況:</span>
-                            </div>
-                            <div class="col-12">
-                                <table class="table table-bordered">
-                                    
-                                    <tr>
-                                        <th class="font30">2018/09/29</th>
-                                        <th>
-                                            <div class="row">
-                                                <div class="col-8"><input type="text" /></div>
-                                                <div class="col-4"><button type="button" class="btn btn-indigo font30">送出</button></div>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>`;
+                    <div class="col-12 " id="contact">
+                        
+                    </div>
+                    <div class="col-12 " id="apply_date_msg">
+                        
+                    </div>
+                    `;
                 if (obj['check_reserve'] == 0) {
                     content += `
-                        <div class="row mx-2">
+                        <div class="row mx-2">`;
+                    if (obj['check_apply'] == "yes") {
+                        (new repair_company_show_repair_company_E('repair_company', 'show_repair_company_E', 'repair_company', obj['case_data'][0]['repair_type_id'])).run();
+                        (new case_show_repair_type_E('case', 'show_repair_type_E', 'repair_type', obj['case_data'][0]['repair_type_id'])).run();
+                        content += `
                             <div class="col-7" ">
                                 <div id="repair_type" col-12 selectfont></div>
                                 <div id="repair_company"></div>
+                            </div>`;
+                    }
+                    content += `
+                            <div class="col-5 font30">
+                                <div id="applydate" class="row font30"></div>`;
+
+                    if (obj['check_apply'] == "yes") {
+                        content += `
+                                <div class=" mt-2 ">
+                                        <button type="button" class="btn btn-indigo font30" id="time_confirm">確認</button>
+                                </div>`;
+                    }
+                    content += `
+                                <div id="err_msg" class="font30"></div>
                             </div>
-                            <div class="col-5 font30" id="applydate">
-                                
-                            </div>
+                            
                         </div>
                     `;
+                    //onclick="(new case_do_confirm_E('case', 'do_confirm_E', 'body',` + obj['case_data'][0]['id'] + `,repaircompany_id,datetime)).run();"
                 }
                 else if (obj['check_finish'] != 10) {
                     content += `
                         <div>
-                            <a href="RepairOrder.html"><button type="button" class="btn btn-indigo font30">完成維修</button></a>
-                            <a href="index.html"><button type="button" class="btn btn-indigo font30">待完成</button></a>
+                            <button type="button" class="btn btn-indigo font30" id="finish">完成維修</button>
+                            <button type="button" class="btn btn-indigo font30" id="unfinish">待完成</button>
                             <a href="index.html"><button type="button" class="btn btn-danger font30">案件退回</button></a>
+                            <div id="unfinish_err"></div>
                         </div>`;
                 }
                 // content += `
@@ -290,12 +270,129 @@ class case_show_case_page_E extends ActionHandler {
                     $('#myTab a:last').tab('show')
                 });
 
+                function check_time_confirm() {
+                    document.getElementById("err_msg").innerHTML = '';
+                    var radio = $('input:radio:checked[name="group100"]').attr('id');
+                    var company_id = $("#hid_com_id").val();
+                    var date = "";
+                    var time = "";
+                    var datetime = "";
+                    if (company_id != "no") {
+                        console.log(company_id);
+                        if (radio == undefined) {
+                            document.getElementById("err_msg").innerHTML = '<font color="red" size="4">請點選時間</font>';
+                        }
+                        else if (radio == "radio101") {
+                            time = document.getElementById("input_starttime1").value;
+                            if (time == null || time == "") {
+                                document.getElementById("err_msg").innerHTML = '<font color="red" size="4">請輸入時間</font>';
+                            }
+                            else {
+                                date = $("#time1").data('date');
+                                datetime = C_date(date) + " " + time + ":00";
+                                console.log(datetime);
+                                (new case_do_confirm_E('case', 'do_confirm_E', 'body', obj['case_data'][0]['id'], company_id, datetime)).run();
+                            }
+
+                        }
+                        else if (radio == "radio102") {
+                            time = document.getElementById("input_starttime2").value;
+                            if (time == null || time == "") {
+                                document.getElementById("err_msg").innerHTML = '<font color="red" size="4">請輸入時間</font>';
+                            }
+                            else {
+                                date = $("#time2").data('date');
+                                datetime = C_date(date) + " " + time + ":00";
+                                console.log(datetime);
+                                (new case_do_confirm_E('case', 'do_confirm_E', 'body', obj['case_data'][0]['id'], company_id, datetime)).run();
+                            }
+                        }
+                        else if (radio == "radio103") {
+                            time = document.getElementById("input_starttime3").value;
+                            if (time == null || time == "") {
+                                document.getElementById("err_msg").innerHTML = '<font color="red" size="4">請輸入時間</font>';
+                            }
+                            else {
+                                date = $("#time3").data('date');
+                                datetime = C_date(date) + " " + time + ":00";
+                                console.log(datetime);
+                                (new case_do_confirm_E('case', 'do_confirm_E', 'body', obj['case_data'][0]['id'], company_id, datetime)).run();
+                            }
+
+                        }
+                        else if (radio == "radio104") {
+                            time = document.getElementById("input_starttime4").value;
+                            if (time == null || time == "") {
+                                document.getElementById("err_msg").innerHTML = '<font color="red" size="4">請輸入時間</font>';
+                            }
+                            else {
+                                date = $("#pick_date").val();
+                                if (date) {
+                                    datetime = C_date(date) + " " + time + ":00";
+                                    console.log(datetime);
+                                    (new case_do_confirm_E('case', 'do_confirm_E', 'body', obj['case_data'][0]['id'], company_id, datetime)).run();
+                                }
+                                else {
+                                    document.getElementById("err_msg").innerHTML = '<font color="red" size="4">請輸入日期</font>';
+                                }
+
+                            }
+                        }
+                    }
+                    else {
+                        document.getElementById("err_msg").innerHTML = '<font color="red" size="4">請選擇廠商</font>';
+                    }
+                }
+
+                function C_date(tt1) {
+                    var tt3;
+                    tt3 = tt1.split("/")[0] + "-" + tt1.split("/")[1] + "-" + tt1.split("/")[2];
+                    return tt3;
+                };
+
+                function st_time_to_min(tt1) {
+                    var tt3;
+                    tt3 = tt1.split(" ")[0].split("-")[0] + "/" + tt1.split(" ")[0].split("-")[1] + "/" + tt1.split(" ")[0].split("-")[2] + " " + tt1.split(" ")[1].split(":")[0] + ":" + tt1.split(" ")[1].split(":")[1];
+                    return tt3;
+                };
+
+                function st_time_to_date(tt1) {
+                    var tt3;
+                    tt3 = tt1.split(" ")[0].split("-")[0] + "/" + tt1.split(" ")[0].split("-")[1] + "/" + tt1.split(" ")[0].split("-")[2];
+                    return tt3;
+                };
+
+                function check_repair_history(type) {
+                    document.getElementById("unfinish_err").innerHTML = '';
+                    if ($("#new_time").val() != null && $("#new_content").val() != null && $("#new_time").val() != "" && $("#new_content").val() != "") {
+                        console.log("new time " + $("#new_time").val());
+                        (new case_do_unfinish_E('case', 'do_unfinish_E', 'unfinish_err', $("#case_id").data("value"), type)).run();
+                    }
+                    else {
+                        document.getElementById("unfinish_err").innerHTML = '<font color="red" size="4">請輸入資料</font>';
+                    }
+                }
                 $(document).ready(function() {
                     $('.mdb-select').material_select();
+                    $("#time_confirm").click(
+                        function() {
+                            check_time_confirm();
+                        }
+                    );
+                    $("#unfinish").click(
+                        function() {
+                            check_repair_history("unfinish");
+                        }
+                    );
+                    $("#finish").click(
+                        function() {
+                            check_repair_history("finish");
+                        }
+                    );
                 });
-                // $('#input_starttime1').pickatime({});
-                // $('#input_starttime2').pickatime({});
-                // $('#input_starttime3').pickatime({});
+                $('#input_starttime1').pickatime({});
+                $('#input_starttime2').pickatime({});
+                $('#input_starttime3').pickatime({});
             }
             else {
                 $('#' + this.position_id).html(obj['status_message']);

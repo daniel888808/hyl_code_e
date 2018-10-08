@@ -13,22 +13,22 @@ class repair_show_apply_date_E extends ActionHandler {
             var json_str = xhttp.responseText;
             //console.log(json_str);
             var obj = JSON.parse(json_str);
+            var ds = obj['data_set'];
+            console.log(obj);
+            this.loadModuleScript("home", "show_home_page_E");
+            var content = "";
             if (obj['status_code'] == 0) {
-                var ds = obj['data_set'];
-                console.log(obj);
-                this.loadModuleScript("home", "show_home_page_E");
-                var content = "";
                 var atime1 = obj['apply_date'][0]['start_Time'];
                 var atime2 = obj['apply_date'][0]['end_Time'];
                 console.log(st(atime1));
                 content += `
-                     <div class="col-12 mt-4">
+                     <div class="col-12 mt-4" >
                                     <span>選擇適用時間</span>
-                                </div>
+                    </div>
                                 <div class=" mt-2 ">
-                                    <div class="form-check">
-                                        <input class="form-check-input " name="group100" type="radio" id="radio100">
-                                        <label class="form-check-label font30" for="radio100">` + st(atime1) + ` (` + st_time(atime1) + `-` + st_time(atime2) + `)<br><input placeholder="確定維修時間" type="text" id="input_starttime1" class="form-control timepicker"></label>
+                                    <div class="form-check" id="time1" data-date="` + st(atime1) + `">
+                                        <input class="form-check-input " name="group100" type="radio" id="radio101">
+                                        <label class="form-check-label font30" for="radio101">` + st(atime1) + ` (` + st_time(atime1) + `-` + st_time(atime2) + `)<br><input placeholder="確定維修時間" type="text" id="input_starttime1" class="form-control timepicker"></label>
                                     </div>
                                     <script>$('#input_starttime1').pickatime({});</script>
                                 </div>
@@ -38,9 +38,9 @@ class repair_show_apply_date_E extends ActionHandler {
                     var btime2 = obj['apply_date'][1]['end_Time'];
                     content += `
                          <div class=" mt-3 ">
-                                    <div class="form-check">
-                                        <input class="form-check-input " name="group100" type="radio" id="radio101">
-                                        <label class="form-check-label font30" for="radio101">` + st(btime1) + ` (` + st_time(btime1) + `-` + st_time(btime2) + `)<input placeholder="確定維修時間" type="text" id="input_starttime2" class="form-control timepicker"></label>
+                                    <div class="form-check" id="time2" data-date="` + st(btime1) + `">
+                                        <input class="form-check-input " name="group100" type="radio" id="radio102">
+                                        <label class="form-check-label font30" for="radio102">` + st(btime1) + ` (` + st_time(btime1) + `-` + st_time(btime2) + `)<input placeholder="確定維修時間" type="text" id="input_starttime2" class="form-control timepicker"></label>
                                     </div>
                                 </div>
                                 <script>$('#input_starttime2').pickatime({});</script>
@@ -51,9 +51,9 @@ class repair_show_apply_date_E extends ActionHandler {
                     var ctime2 = obj['apply_date'][2]['end_Time'];
                     content += `
                          <div class=" mt-3 ">
-                                    <div class="form-check">
-                                        <input class="form-check-input " name="group100" type="radio" id="radio101">
-                                        <label class="form-check-label font30" for="radio101">` + st(ctime1) + ` (` + st_time(ctime1) + `-` + st_time(ctime2) + `)<input placeholder="確定維修時間" type="text" id="input_starttime3" class="form-control timepicker"></label>
+                                    <div class="form-check" id="time3" data-date="` + st(ctime1) + `">
+                                        <input class="form-check-input " name="group100" type="radio" id="radio103">
+                                        <label class="form-check-label font30" for="radio103" >` + st(ctime1) + ` (` + st_time(ctime1) + `-` + st_time(ctime2) + `)<input placeholder="確定維修時間" type="text" id="input_starttime3" class="form-control timepicker"></label>
                                     </div>
                                 </div>
                                 <script>$('#input_starttime3').pickatime({});</script>
@@ -62,55 +62,56 @@ class repair_show_apply_date_E extends ActionHandler {
                 content += `
                                
                                 <div class=" mt-3 ">
-                                    <div class="form-check">
-                                        <input class="form-check-input " name="group100" type="radio" id="radio102">
-                                        <label class="form-check-label font30" for="radio102">其他:</label>
+                                    <div class="form-check" id="time4">
+                                        <input class="form-check-input " name="group100" type="radio" id="radio104">
+                                        <label class="form-check-label font30" for="radio104">其他:</label>
                                         <div class="form-check">
                                             <div class="row my-0">
                                                 <div class="col-6">
-                                                    <input type="date" class="form-control" id="month1" placeholder="Enter month">
+                                                    <input type="date" class="form-control" id="pick_date" placeholder="Enter month">
                                                 </div>
                                                 <div class="col-6">
-                                                    <input placeholder="時間" type="text" id="input_starttime3" class="form-control timepicker">
+                                                    <input placeholder="時間" type="text" id="input_starttime4" class="form-control timepicker">
                                                 </div>
+                                                <script>$('#input_starttime4').pickatime({});</script>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                     
-                                <div class=" mt-2 ">
-                                    <button type="button" class="btn btn-indigo font30">確認</button>
-                                </div>
+                                
                 `;
-                $('#input_starttime1').pickatime({});
-                $('#input_starttime2').pickatime({});
-                $('#input_starttime3').pickatime({});
-
-                $('#' + this.position_id).html(content);
-
-                function st(tt1) {
-                    var tt3;
-                    tt3 = tt1.split(" ")[0].split("-")[0] + "/" + tt1.split(" ")[0].split("-")[1] + "/" + tt1.split(" ")[0].split("-")[2];
-                    return tt3;
-                };
-
-                function st_time(tt1) {
-                    var tt3;
-                    tt3 = tt1.split(" ")[1].split(":")[0] + ":" + tt1.split(" ")[1].split(":")[1];
-                    return tt3;
-                };
-
-
-
-
-
-
-
             }
-
             else {
-                $('#' + this.position_id).html(obj['status_message']);
+                document.getElementById("apply_date_msg").innerHTML = "客戶尚未選擇時間";
+                // content += `
+                //     <div class="font30 row" >
+                //         客戶尚未選擇時間
+                //     </div>
+                //     `;
             }
+            // else {
+            //     $('#' + this.position_id).html(obj['status_message']);
+            // }
+            // $('#input_starttime1').pickatime({});
+            // $('#input_starttime2').pickatime({});
+            // $('#input_starttime3').pickatime({});
+            // $('#input_starttime4').pickatime({});
+
+            $('#' + this.position_id).html(content);
+
+            function st(tt1) {
+                var tt3;
+                tt3 = tt1.split(" ")[0].split("-")[0] + "/" + tt1.split(" ")[0].split("-")[1] + "/" + tt1.split(" ")[0].split("-")[2];
+                return tt3;
+            };
+
+            function st_time(tt1) {
+                var tt3;
+                tt3 = tt1.split(" ")[1].split(":")[0] + ":" + tt1.split(" ")[1].split(":")[1];
+                return tt3;
+            };
+
 
             //this.loadModuleScript("case", "do_select_action");
         }

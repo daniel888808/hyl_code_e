@@ -14,7 +14,7 @@
 		    }
 		    $post = $em->getPost();
 		    $repair_type = $post['repair_type'];
-		    //$repair_type_id=$post['repair_type_id'];
+		    $repair_type_id=$post['repair_type_id'];
             $case_model = new case_model();
             $household_model= new household_model();
             $building_model= new building_model();

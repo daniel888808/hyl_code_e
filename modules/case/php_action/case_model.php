@@ -57,6 +57,16 @@
             return $return_value;
 
         }
+        public function update_case_profile($something,$where){
+            $sql ="UPDATE `case_profile` SET $something WHERE $where";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+        }
+        public function update_repair_type($something,$where){
+            $sql ="UPDATE `repair_type` SET $something WHERE $where";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+        }
         
     }
     

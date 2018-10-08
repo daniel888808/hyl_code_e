@@ -6,18 +6,27 @@
     require_once 'modules/building/php_action/building_model.php';
     require_once 'modules/user_profile/php_action/user_profile_model.php';
     require_once 'modules/repair/php_action/repair_model.php';
-    class show_apply_date_E implements action_listener{
+    require_once 'modules/contact/php_action/contact_model.php';
+    class new_contact_E implements action_listener{
         public function actionPerformed(event_message $em) {
-    //          if(isset($_SESSION['useracc'])){
-			 //   $user_id=$_SESSION['userid'];
-		  //  }
+             if(isset($_SESSION['useracc'])){
+			    $user_id=$_SESSION['userid'];
+		    }
 		    $post = $em->getPost();
-		    $repair_history_id = $post['repair_history_id'];
+		    $case_id = $post['case_id'];
+		    $new_contact=$post['new_contact'];
             $case_model = new case_model();
             $household_model= new household_model();
             $building_model= new building_model();
             $user_model = new user_profile_model();
-            $repair_model= new repair_model();//要先找到Repair_history profile的Reservtime
+            $repair_model= new repair_model();
+            $contact_model= new contact_model();
+            ini_set ( 'date.timezone' , 'Asia/Taipei' );
+			date_default_timezone_set('Asia/Taipei');
+		    $date=date("Y-m-d")." ".date("H:i:s");
+		    
+            $contact_model->insert_new_contact($date,$new_contact,$case_id);
+            $return_value["test"]="date=".$date." contact=".$new_contact." caseid=".$case_id;
             $return_value['status_code'] = 0;
             //$case_data=$case_model->get_something_from_case_profile("*","id=$case_id");
             // if($case_data){

@@ -19,13 +19,14 @@
             $user_model = new user_profile_model();
             $repair_model= new repair_model();//要先找到Repair_history profile的Reservtime
             $apply_date=$repair_model->get_something_from_applydate("start_Time,end_Time","repair_history_id=".$repair_history_id);
-            //if($apply_date){
+            if($apply_date){
                 $return_value['status_code'] = 0;
                 $return_value['apply_date'] =$apply_date;
-            // }else{
-            //     $return_value['status_code'] = 1;
+             }else{
+                 $return_value['status_code'] = 1;
+                 $return_value['status_message'] ="客戶尚未預約時間";
                 
-            // }
+             }
             
             return json_encode($return_value);
         }        

@@ -8,9 +8,9 @@
     require_once 'modules/repair/php_action/repair_model.php';
     class show_case_page_E implements action_listener{
         public function actionPerformed(event_message $em) {
-             if(isset($_SESSION['useracc'])){
-			    $user_id=$_SESSION['userid'];
-		    }
+    //          if(isset($_SESSION['useracc'])){
+			 //   $user_id=$_SESSION['userid'];
+		  //  }
 		    $post = $em->getPost();
 		    $case_id = $post['case_id'];
             $case_model = new case_model();
@@ -44,6 +44,7 @@
                 $repair_history_id=$repair_model->get_last_repair_history_id($case_id);
                 $return_value['rph_id']=$repair_history_id[0][0];
                 //維修歷程ID
+                $apply_date=$repair_model->get_something_from_applydate("start_Time,end_Time","repair_history_id=".$repair_history_id[0][0]);
                 if($case_data[0]['status']=="finish"){
                     $return_value['check_finish'] = 10;
                     $return_value['status_message'] = "已完成的案件";
@@ -55,6 +56,11 @@
                     }else{
                         $return_value['status_message'] = "未完成的案件 待確認時間";
                         $return_value['check_reserve']=0;
+                        if($apply_date!= null){
+                            $return_value['check_apply']="yes";
+                        }else{
+                            $return_value['check_apply']="no";
+                        }
                     }
                 }else if($case_data[0]['status']=="new"){
                     $return_value['check_finish'] = 12;
@@ -64,6 +70,11 @@
                     }else{
                         $return_value['status_message'] = "新案件 待確認時間";
                         $return_value['check_reserve']=0;
+                        if($apply_date!= null){
+                            $return_value['check_apply']="yes";
+                        }else{
+                            $return_value['check_apply']="no";
+                        }
                     }
                 }
             }else{

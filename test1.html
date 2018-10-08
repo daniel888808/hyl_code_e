@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>cssrain - demo</title>
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        $(document).ready(function() {
+            //demo1:
+            //-隔行,滑動,點選 變色
+            $('.cssraindemo1 tbody tr:even').addClass('odd');
+            $('.cssraindemo1 tbody tr').hover(
+                function() { $(this).addClass('highlight'); },
+                function() { $(this).removeClass('highlight'); }
+            );
+            $('.cssraindemo1 tbody tr').click(
+                function() { $(this).toggleClass('selected'); }
+            );
+            $('.cssraindemo1 tbody tr').click(
+                function() {
+                    $(this).siblings().removeClass('selected');
+                    $(this).addClass('selected');
+                    //$(this).find('input[type="radio"]').attr('checked', 'checked');
+                }
+            );
+        });
+        //-->
+    </script>
+    <style type="text/css">
+        /*h1 {*/
+
+        /*    font: bold 20px/26px Arial;*/
+
+        /*}*/
+
+        /*table {*/
+
+        /*    border: 0;*/
+
+        /*    border-collapse: collapse;*/
+
+        /*}*/
+
+        /*td {*/
+
+        /*    font: normal 12px/17px Arial;*/
+
+        /*    padding: 2px;*/
+
+        /*    width: 100px;*/
+
+        /*}*/
+
+        /*th {*/
+
+        /*    font: bold 12px/17px Arial;*/
+
+        /*    text-align: left;*/
+
+        /*    padding: 4px;*/
+
+        /*    border-bottom: 1px solid #333;*/
+
+        /*}*/
+
+        tr.highlight {
+            background: #6F4DFF;
+        }
+
+        tr.selected {
+            background: #aaaaaa;
+            color: #fff;
+        }
+    </style>
+    <!-- demo1 -->
+    <h1>Demo1--隔行,滑動,點選 變色.</h1>
+    <table class="cssraindemo1">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>性別</th>
+                <th>暫住地</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>張山</td>
+                <td>男</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a type="button" id="company_data" class="btn bg-transparent p-2" onclick="incom_dialog(22, address, contector, name, phone)">
+                                                        <i class="fa fa-file fa-lg text-dark"></i>
+                                                    </a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>李四</td>
+                <td>女</td>
+                <td>浙江杭州</td>
+            </tr>
+            <tr>
+                <td>王五</td>
+                <td>男</td>
+                <td>湖南長沙</td>
+            </tr>
+            <tr>
+                <td>找六</td>
+                <td>男</td>
+                <td>浙江溫州</td>
+            </tr>
+            <tr>
+                <td>Rain</td>
+                <td>男</td>
+                <td>浙江杭州</td>
+            </tr>
+            <tr>
+                <td>MAXMAN</td>
+                <td>女</td>
+                <td>浙江杭州</td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="com_dialog"></div>
+    <script>
+        function incom_dialog(id, address, contector, name, phone) {
+            document.getElementById("com_dialog").innerHTML = `
+                            <div id="dialog" title="Basic dialog">
+                                <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+                            </div>`;
+        }
+    </script>
+
+
+</body>

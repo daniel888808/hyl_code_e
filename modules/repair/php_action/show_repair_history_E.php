@@ -6,19 +6,45 @@
     require_once 'modules/building/php_action/building_model.php';
     require_once 'modules/user_profile/php_action/user_profile_model.php';
     require_once 'modules/repair/php_action/repair_model.php';
-    class show_apply_date_E implements action_listener{
+    require_once 'modules/repair_company/php_action/repair_company_model.php';
+    class show_repair_history_E implements action_listener{
         public function actionPerformed(event_message $em) {
     //          if(isset($_SESSION['useracc'])){
 			 //   $user_id=$_SESSION['userid'];
 		  //  }
 		    $post = $em->getPost();
-		    $repair_history_id = $post['repair_history_id'];
+		    $case_id = $post['case_id'];
             $case_model = new case_model();
             $household_model= new household_model();
             $building_model= new building_model();
             $user_model = new user_profile_model();
-            $repair_model= new repair_model();//要先找到Repair_history profile的Reservtime
-            $return_value['status_code'] = 0;
+            $repair_model= new repair_model();
+            $repair_company_model=new repair_company_model();
+            
+            $repair_history=$repair_model->get_something_from_repair_history("*","case_id=".$case_id." ORDER BY `repair_history_profile`.`reservetime` ASC");
+            $repair_type=array();
+            $repair_com=array();
+            for($i=0;$i<sizeof($repair_history);$i++){
+                $h = $repair_company_model->get_something_from_repair_company_profile("name","id=".$repair_history[$i]['repair_company_id']);
+                array_push($repair_com,$h[0][0]);
+            }
+            $return_value['repair_history'] = $repair_history;
+            $return_value['repair_com'] = $repair_com;
+            $reservetime=$repair_model->check_reservetime($case_id);
+            if($reservetime[0][0]!=null){
+                $return_value['status_code'] = 0;
+                $return_value['status_message'] = "已預約";
+            }else{
+                $return_value['status_code'] = 1;
+                if(sizeof($repair_history)>1){
+                    $return_value['status_message'] = "未預約已經報修過";
+                    $return_value["check_histroy_length"]="yes";
+                }
+                else{
+                    $return_value['status_message'] = "未預約未報修";
+                    $return_value["check_histroy_length"]="no";
+                }
+            }
             //$case_data=$case_model->get_something_from_case_profile("*","id=$case_id");
             // if($case_data){
                 // $return_value['case_data']=$case_data;

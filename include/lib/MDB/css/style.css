@@ -41,4 +41,13 @@
     font-size: 25px
 }
 
+tr.highlight {
+    background: #6F4DFF;
+}
+
+tr.selected {
+    background: #aaaaaa;
+    color: #fff;
+}
+
 /* Your custom styles */

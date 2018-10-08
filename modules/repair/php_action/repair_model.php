@@ -86,6 +86,24 @@
             return $return_value;
 
         }
+        public function update_repair_history($something,$where){
+            $sql ="UPDATE `repair_history_profile` SET $something WHERE $where";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+
+        }
+        public function update_apply_date($something,$where){
+            $sql ="UPDATE `apply_date` SET $something WHERE $where";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+
+        }
+        public function upload_photo($case_id,$path,$imgtype){
+            $sql ="INSERT INTO `photo_file` (`case_id`, `path`, `type`) VALUES ('$case_id', '$path', '$imgtype');";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+
+        }
         
     }
     
