@@ -30,6 +30,7 @@
             $caseall=array();
             $casenew=array();
             $caseunfin=array();
+            $check_repair_date=array();
             $h;$hi;
             
             $household_model= new household_model();
@@ -45,8 +46,20 @@
             for($i=0;$i<sizeof($household_user);$i++){
                 $hi=$case_model->get_something_from_case_profile("*","household_user_id=".$household_user[$i][0]." ORDER BY `start_datetime` DESC");
                 array_push($caseall,$hi);
+                for($z=0;$z<sizeof($hi);$z++){
+                    $repair_history_id=$repair_model->get_last_repair_history_id($hi[$z]["id"]);
+                    $repair_date=$repair_model->get_something_from_repair_history("reservetime","id=".$repair_history_id[0][0]);
+                    if($repair_date[0][0]){
+                        $check_repair_date[$i][$z]["repair_date"]=$repair_date[0][0];
+                        $check_repair_date[$i][$z]["check_repair_date"]="待維修";
+                        // array_push($check_repair_date,"yes");
+                    }else{
+                        $check_repair_date[$i][$z]["repair_date"]="尚無";
+                        $check_repair_date[$i][$z]["check_repair_date"]="待確認時間";
+                        //array_push($check_repair_date,"no");
+                    }
+                }
             }
-            
             
             
             for($i=0;$i<sizeof($household_user);$i++){
@@ -60,20 +73,23 @@
             }
             
             
+            // for($i=0;$i<sizeof($caseall);$i++){
+            //     $repair_history_id=$repair_model->get_last_repair_history_id($caseall[0][$i]["id"]);
+            //     $repair_date=$repair_model->get_something_from_repair_history("reservetime","id=".$repair_history_id[0][0]);
+            //     array_push($check_repair_date,$repair_date[0][0]);
+            // }
             
             
             $household_data = $household_model->get_something_from_household_profile("id,number","construction_project_id =".$building_id[0][0]);
             
             $reservetime=$repair_model->check_reservetime($case_id);
-            
-            
-            
-            
+                
             if($caseall){
                 $ds = $caseall;
                 $return_value['status_code'] = 0;
                 $return_value['status_message'] = 'Execute Success';
                 $return_value['data_set'] = $ds;
+                $return_value['check_repair_date']=$check_repair_date;
                 $return_value['buildingname'] = $building_name;
                 $return_value['test']=$household_data;
                 $return_value['sql'] = $sql;

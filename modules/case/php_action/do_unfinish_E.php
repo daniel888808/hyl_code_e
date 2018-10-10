@@ -29,9 +29,14 @@
             // $return_value['case_id']=$case_id;
             $return_value['type']=$type;
             $repair_model->update_repair_history("repair_content = '$new_content', work_time = '$new_time'","id=".$repair_history_id[0][0]);
-            $repair_model->insert_new_repair_history($case_id);
+            ini_set ( 'date.timezone' , 'Asia/Taipei' );
+			date_default_timezone_set('Asia/Taipei');
+		    $date=date("Y-m-d")." ".date("H:i:s");
             if($type=="finish"){
-                $case_model->update_case_profile("`status` = 'finish'","id=$case_id");
+                $case_model->update_case_profile("`status` = 'finish',`end_datetime` = '$date'","id=$case_id");
+            }else if($type =="unfinish")
+            {
+                $repair_model->insert_new_repair_history($case_id);
             }
            
             return json_encode($return_value);

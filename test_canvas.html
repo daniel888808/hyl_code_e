@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=”UTF-8″>
+    <title></title>
+    <meta name=”viewport” content=”device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no” />
+</head>
+<styletype=”text/css”>
+    html,body{ /* 重置預設樣式 */ margin: 0; padding: 0; } html,body, #mycanvas{ width: 100%; height: 100%; overflow: hidden; }
+    </style>
+
+    <body>
+        <div id=”mycanvas”>
+            <canvasid=”canvas”>
+                </canvas>
+        </div>
+        <script>
+            /** 偵聽touchstart事件 **/
+            document.body.addEventListener(‘touchstart’, function() {
+                event.preventDefault(); //手指滑動時，瀏覽器會上下左右翻屏
+            });
+            var oCanvas = document.getElementById(“canvas”);
+            oCanvas.width = document.body.clientWidth;
+            oCanvas.height = document.body.clientHeight;
+            var cxt = oCanvas.getContext('2 d');
+            cxt.lineWidth = 2;
+            var posX = 0; //x座標
+            var posY = 0; //y座標
+            var position = null;
+            //手指觸控式螢幕幕可記錄此時的位置作為起點
+            oCanvas.addEventListener(“touchstart”, function() {
+                posX = event.changedTouches[0].clientX;
+                posY = event.changedTouches[0].clientY;
+                cxt.moveTo(posX, posY);
+            });
+            //手指屏滑動畫線
+            oCanvas.addEventListener(“touchmove”, function() {
+                posX = event.changedTouches[0].clientX;
+                posY = event.changedTouches[0].clientY;
+                cxt.lineTo(posX, posY);
+                cxt.stroke();
+            });
+        </script>
+    </body>
+
+</html>

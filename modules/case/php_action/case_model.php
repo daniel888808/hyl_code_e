@@ -9,7 +9,7 @@
             parent::__construct();
         }
         public function insert_new_case($household_user_id,$repair_type_id,$title, $content,$start_datetime){
-            $sql ="INSERT INTO `case_profile` (`id`, `status`, `household_user_id`, `repair_type_id`, `title`, `content`, `user_rank`, `user_conmment`, `start_datetime`, `end_datetime`) VALUES (NULL, 'new', '$household_user_id', '$repair_type_id', '$title', '$content', NULL, NULL, '$start_datetime', NULL)";
+            $sql ="INSERT INTO `case_profile` (`id`, `status`, `household_user_id`, `repair_type_id`, `title`, `content`, `user_rank`, `user_comment`, `start_datetime`, `end_datetime`) VALUES (NULL, 'new', '$household_user_id', '$repair_type_id', '$title', '$content', NULL, NULL, '$start_datetime', NULL)";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
         }

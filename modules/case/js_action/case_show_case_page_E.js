@@ -97,7 +97,7 @@ class case_show_case_page_E extends ActionHandler {
                                 <span>客戶名稱: ` + obj['user_data']['data_set'][0]['name'] + `</span>
                             </div>
                             <div class="col-4">
-                                <span>聯絡人: ` + obj['ename'] + `</span>
+                                <span>工務主任: ` + obj['ename'] + `</span>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@ class case_show_case_page_E extends ActionHandler {
                             <div class="col-12">
                                 <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="10" placeholder="`;
                 content += obj['case_data'][0]['content'];
-                content += `" disabled></textarea>
+                content += `" style = "font-size:30px" disabled></textarea>
                             </div>
                         </div>
                     </div>
@@ -159,25 +159,25 @@ class case_show_case_page_E extends ActionHandler {
                 if (obj['check_reserve'] == 0) {
                     content += `
                         <div class="row mx-2">`;
-                    if (obj['check_apply'] == "yes") {
-                        (new repair_company_show_repair_company_E('repair_company', 'show_repair_company_E', 'repair_company', obj['case_data'][0]['repair_type_id'])).run();
-                        (new case_show_repair_type_E('case', 'show_repair_type_E', 'repair_type', obj['case_data'][0]['repair_type_id'])).run();
-                        content += `
+                    //if (obj['check_apply'] == "yes") {
+                    (new repair_company_show_repair_company_E('repair_company', 'show_repair_company_E', 'repair_company', obj['case_data'][0]['repair_type_id'])).run();
+                    (new case_show_repair_type_E('case', 'show_repair_type_E', 'repair_type', obj['case_data'][0]['repair_type_id'])).run();
+                    content += `
                             <div class="col-7" ">
                                 <div id="repair_type" col-12 selectfont></div>
                                 <div id="repair_company"></div>
                             </div>`;
-                    }
+                    //}
                     content += `
                             <div class="col-5 font30">
                                 <div id="applydate" class="row font30"></div>`;
 
-                    if (obj['check_apply'] == "yes") {
-                        content += `
+                    //if (obj['check_apply'] == "yes") {
+                    content += `
                                 <div class=" mt-2 ">
                                         <button type="button" class="btn btn-indigo font30" id="time_confirm">確認</button>
                                 </div>`;
-                    }
+                    //}
                     content += `
                                 <div id="err_msg" class="font30"></div>
                             </div>

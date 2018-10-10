@@ -30,8 +30,9 @@ class repair_show_apply_date_E extends ActionHandler {
                                         <input class="form-check-input " name="group100" type="radio" id="radio101">
                                         <label class="form-check-label font30" for="radio101">` + st(atime1) + ` (` + st_time(atime1) + `-` + st_time(atime2) + `)<br><input placeholder="確定維修時間" type="text" id="input_starttime1" class="form-control timepicker"></label>
                                     </div>
-                                    <script>$('#input_starttime1').pickatime({});</script>
+                                    
                                 </div>
+                                <script>$('#input_starttime1').pickatime({});</script>
                                 `;
                 if (obj['apply_date'][1]) {
                     var btime1 = obj['apply_date'][1]['start_Time'];
@@ -81,14 +82,43 @@ class repair_show_apply_date_E extends ActionHandler {
                     
                                 
                 `;
+                //<script>$('#input_starttime1').pickatime({});</script>
+                //<script>$('#input_starttime2').pickatime({});</script>
+                //<script>$('#input_starttime3').pickatime({});</script>
+                //<script>$('#input_starttime4').pickatime({});</script>
             }
             else {
-                document.getElementById("apply_date_msg").innerHTML = "客戶尚未選擇時間";
-                // content += `
-                //     <div class="font30 row" >
-                //         客戶尚未選擇時間
-                //     </div>
-                //     `;
+                //document.getElementById("apply_date_msg").innerHTML = "客戶尚未選擇時間";
+                content += `
+                     <div class="col-12 mt-4" >
+                                    <span>選擇適用時間</span>
+                    </div>
+                    <div class="col-12 mt-4" >
+                                    <span>客戶尚未選擇時間</span>
+                    </div>
+                            `;
+                content += `
+                               
+                                <div class=" mt-3 ">
+                                    <div class="form-check" id="time4">
+                                        <input class="form-check-input " name="group100" type="radio" id="radio104">
+                                        <label class="form-check-label font30" for="radio104">其他:</label>
+                                        <div class="form-check">
+                                            <div class="row my-0">
+                                                <div class="col-6">
+                                                    <input type="date" class="form-control" id="pick_date" placeholder="Enter month">
+                                                </div>
+                                                <div class="col-6">
+                                                    <input placeholder="時間" type="text" id="input_starttime4" class="form-control timepicker">
+                                                </div>
+                                                <script>$('#input_starttime4').pickatime({});</script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    
+                                
+                `;
             }
             // else {
             //     $('#' + this.position_id).html(obj['status_message']);

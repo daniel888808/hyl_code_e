@@ -3,543 +3,181 @@ var t1;
 var da = new Date();
 var ye = da.getFullYear();
 t1 = st(ds[i]['start_datetime']);
-function st(tt1){
-                    var tt3;    
-                    if (tt1.split("-", 1) == ye) { tt3 = tt1.split(" ")[0].split("-")[1] + "-" + tt1.split(" ")[0].split("-")[2] + " " + tt1.split(" ")[1].split(":")[0] + ":" + tt1.split(" ")[1].split(":")[1]; }
-                    else {tt3 = tt1;}
-                    return tt3;
-                };
+
+function st(tt1) {
+    var tt3;
+    if (tt1.split("-", 1) == ye) { tt3 = tt1.split(" ")[0].split("-")[1] + "-" + tt1.split(" ")[0].split("-")[2] + " " + tt1.split(" ")[1].split(":")[0] + ":" + tt1.split(" ")[1].split(":")[1]; }
+    else { tt3 = tt1; }
+    return tt3;
+};
 <!-------(切時間) -------!>
 
 -->
+<!-------(抓時間)-------!>
+function gt() {
+    var timedate = new Date();
+    var year = timedate.getFullYear();
+    var month;
+    var date;
+    if ((timedate.getMonth() + 1) < 10) {
+        month = "0" + (timedate.getMonth() + 1);
+    }
+    else {
+        month = (timedate.getMonth() + 1);
+    }
+    if (timedate.getDate() < 10) {
+        date = "0" + timedate.getDate();
+    }
+    else {
+        date = timedate.getDate();
+    }
+    var ttime = year + "-" + month + "-" + date;
+    return ttime;
+}
+-->
+
+<!-------(抓時間)-------!>
+                    $("#testtime").click(function checktime() {
+
+                        var t1 = gt();
+                        var x1 = document.getElementById("div2");
+                        var x2 = document.getElementById("div3")
 
 
-<?php
+                        if (x1 == null && x2 == null) {
+                            var time1 = document.getElementById("input_starttime1-1").value;
+                            var time2 = document.getElementById("input_starttime1-2").value;
+                            var date1 = document.getElementById("date1").value;
 
-<!--$secret="test";-->
+                            if (date1 == false) {
+                                document.getElementById("time_err").innerHTML = `<p class="red-text">還沒選擇日期</p>`;
+                            }
+                            else if (date1 < t1) {
+                                document.getElementById("time_err").innerHTML = `<p class="red-text">日期已經過期</p>`;
+                            }
+                            else {
+                                if (time1 == null || time2 == null) {
+                                    document.getElementById("time_err").innerHTML = `<p class="red-text">還沒選擇時間</p>`;
+                                }
+                                else if (time1 == time2) {
+                                    document.getElementById("time_err").innerHTML = `<p class="red-text">時間選擇相同</p>`;
+                                }
+                                else {
+                                    if (time1 > time2) {
+                                        document.getElementById("time_err").innerHTML = `<p class="red-text">時間選擇有誤</p>`;
+                                    }
+                                    else {
+                                        document.getElementById("time_err").innerHTML = `<p class="red-text">時間選擇正確</p>`;
+                                        //do repair action;
+                                        //(new repair_do_repair_action('repair','do_repair_action','body')).run()
+                                    }
+                                }
+                            }
 
+                        }
+                        else if (x1 && x2 == null) {
+                            var time1 = document.getElementById("input_starttime1-1").value;
+                            var time2 = document.getElementById("input_starttime1-2").value;
+                            var time3 = document.getElementById("input_starttime2-1").value;
+                            var time4 = document.getElementById("input_starttime2-2").value;
+                            var date1 = document.getElementById("date1").value;
+                            var date2 = document.getElementById("date2").value;
 
-    
-<!--    $header="123";-->
-<!--    $payload="456";-->
-    
+                            if (date1 == false || date2 == false) {
+                                document.getElementById("time_err").innerHTML = `<p class="red-text">還沒選擇日期</p>`;
+                            }
+                            else if (date1 < t1 || date2 < t1) {
+                                document.getElementById("time_err").innerHTML = `<p class="red-text">日期已經過期</p>`;
+                            }
+                            else {
+                                if (time1 == null || time2 == null || time3 == null || time4 == null) {
+                                    document.getElementById("time_err").innerHTML = `<p class="red-text">還沒選擇時間</p>`;
+                                }
+                                else if (time1 == time2 || time3 == time4) {
+                                    document.getElementById("time_err").innerHTML = `<p class="red-text">時間選擇相同</p>`;
+                                }
+                                else {
+                                    if (time1 > time2 || time3 > time4) {
+                                        document.getElementById("time_err").innerHTML = `<p class="red-text">時間選擇有誤</p>`;
+                                    }
+                                    else {
+                                        document.getElementById("time_err").innerHTML = `<p class="red-text">時間選擇正確</p>`;
+                                        //do repair action;
+                                        //(new repair_do_repair_action('repair','do_repair_action','body')).run()
+                                    }
 
-<!--    $token=(HMACSHA256(base64UrlEncode($header) + "." + base64UrlEncode($payload)+ "." +$secret));-->
-<!--    echo $token;-->
+                                }
+                            }
 
-    $payload = json_encode(['user_id' => 123]);
+                        }
+                        else if (x1 == null && x2) {
+                            var time1 = document.getElementById("input_starttime1-1").value;
+                            var time2 = document.getElementById("input_starttime1-2").value;
+                            var time3 = document.getElementById("input_starttime3-1").value;
+                            var time4 = document.getElementById("input_starttime3-2").value;
+                            var date1 = document.getElementById("date1").value;
+                            var date2 = document.getElementById("date3").value;
 
-// Encode Header to Base64Url String
-$base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
+                            if (date1 == false || date2 == false) {
+                                document.getElementById("time_err").innerHTML = `<p class="red-text">還沒選擇日期</p>`;
+                            }
+                            else if (date1 < t1 || date2 < t1) {
+                                document.getElementById("time_err").innerHTML = `<p class="red-text">日期已經過期</p>`;
+                            }
+                            else {
+                                if (time1 == null || time2 == null || time3 == null || time4 == null) {
+                                    document.getElementById("time_err").innerHTML = `<p class="red-text">還沒選擇時間</p>`;
+                                }
+                                else if (time1 == time2 || time3 == time4) {
+                                    document.getElementById("time_err").innerHTML = `<p class="red-text">時間選擇相同</p>`;
+                                }
+                                else {
+                                    if (time1 > time2 || time3 > time4) {
+                                        document.getElementById("time_err").innerHTML = `<p class="red-text">時間選擇有誤</p>`;
+                                    }
+                                    else {
+                                        document.getElementById("time_err").innerHTML = `<p class="red-text">時間選擇正確</p>`;
+                                        //do repair action;
+                                        //(new repair_do_repair_action('repair','do_repair_action','body')).run()
+                                    }
+                                }
+                            }
+                        }
+                        else if (x1 && x2) {
+                            var time1 = document.getElementById("input_starttime1-1").value;
+                            var time2 = document.getElementById("input_starttime1-2").value;
+                            var time3 = document.getElementById("input_starttime2-1").value;
+                            var time4 = document.getElementById("input_starttime2-2").value;
+                            var time5 = document.getElementById("input_starttime3-1").value;
+                            var time6 = document.getElementById("input_starttime3-2").value;
+                            var date1 = document.getElementById("date1").value;
+                            var date2 = document.getElementById("date2").value;
+                            var date3 = document.getElementById("date3").value;
 
-// Encode Payload to Base64Url String
-$base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
-
-// Create Signature Hash
-$signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, 'abC123!', true);
-
-// Encode Signature to Base64Url String
-$base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
-
-// Create JWT
-$jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
-
-echo $jwt;
-?>
-    <!DOCTYPE html>
-    <html>
-
-    <head>
-
-    </head>
-
-    <body>
-        <?php echo $token;  ?>
-
-    </body>
-
-    </html>
-
-
-
-
-
-    <div class="container">
-        <div class="row " id="min-h">
-            <div class="col-12 px-0">
-                <table class="table table-striped text-center mt-3">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="py-1 font-weight-bold h6">維修日期 </th>
-                            <th scope="col" class="py-1 font-weight-bold h6">維修事項</th>
-                            <th scope="col" class="py-1 font-weight-bold h6" style="width:120px">維修狀況</th>
-                        </tr>
-                    </thead>
-                    <tshow_area>
-                        <tr>
-                            <th class="py-1 fontsm"><a onclick="(new case_do_select_action('case','do_select_action','body')).run()">2018/02/11 </a></th>
-                            <td class="py-1 fontsm"><a onclick="(new case_do_select_action('case','do_select_action','body')).run()">壁癌處理 </a></td>
-                            <td class="py-1 fontsm"><a onclick="(new case_do_select_action('case','do_select_action','body')).run()">
-                                        <i class = "fa fa-check light-blue-text" aria-hidden="true"></a></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm"><a onclick="(new case_do_select_action('case','do_select_action','body')).run()">2018/02/02</a></th>
-                            <td class="py-1 fontsm"><a onclick="(new case_do_select_action('case','do_select_action','body')).run()">油漆工程</a></td>
-                            <td class="py-1 fontsm"><a onclick="(new case_do_select_action('case','do_select_action','body')).run()">
-                                        <i class="fa fa-check light-blue-text" aria-hidden="true"></a></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm">2018/01/03</th>
-                            <td class="py-1 fontsm">水電處理</td>
-                            <td class="py-1 fontsm">
-                                <i class="fa fa-check light-blue-text" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm">2017/12/04</th>
-                            <td class="py-1 fontsm">電器處理</td>
-                            <td class="py-1 fontsm">
-                                <i class="fa fa-check light-blue-text" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr=>
-                            <th class="py-1 fontsm">2017/11/05</th>
-                            <td class="py-1 fontsm">家具維修</td>
-                            <td class="py-1 fontsm">
-                                <i class="fa fa-check light-blue-text" aria-hidden="true"></i>
-                            </td>
-                            </tr>
-                            <tr=>
-                                <th class="py-1 fontsm">2017/11/01</th>
-                                <td class="py-1 fontsm">其他維修</td>
-                                <td class="py-1 fontsm">
-                                    <i class="fa fa-check light-blue-text" aria-hidden="true"></i>
-                                </td>
-                                </tr>
-                                <tr>
-                                    <th class="py-1 fontsm">2017/10/17</th>
-                                    <td class="py-1 fontsm">其他維修</td>
-                                    <td class="py-1 fontsm">
-                                        <i class="fa fa-check light-blue-text" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                    </tshow_area>
-                </table>
-            </div>
-        </div>
-    </div>
-
-
-    <script type="text/javascript">
-        function handleClick(evt) {
-            var node = evt.target || evt.srcElement;
-            if (node.name == 'edit') {
-                node.value = "Modify";
-            }
-        }
-    </script>
-
-    <table id="table1" border="1" onclick="handleClick(event);">
-        <thead>
-            <tr>
-                <th>Select
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <form name="f1" action="#">
-                        <input id="edit1" type="submit" name="edit" value="Edit">
-                    </form>
-                    <tr>
-                        <td>
-                            <form name="f2" action="#">
-                                <input id="edit2" type="submit" name="edit" value="Edit">
-                            </form>
-                            <tr>
-                                <td>
-                                    <form name="f3" action="#">
-                                        <input id="edit3" type="submit" name="edit" value="Edit">
-                                    </form>
-
-        </tbody>
-    </table>
-    //////////////////////////////
-
-
-    <div class="container pt-3">
-        <div class="row mt-4">
-            <div class="col-4">
-                <span class="h2">案件</span>
-            </div>
-            <div class="switch col-6">
-                <ul class="nav nav-tabs nav-justified bg-indigo">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#Yet_Finish" role="tab">待完成</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#New" role="tab">新案件</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="row tab-content card mt-4" id="min-h">
-            <!--Panel 1-->
-            <div class="tab-pane fade in show active" id="Yet_Finish" role="tabpanel">
-                <table class="table table-striped text-center">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="py-1 font-weight-bold h4">建案名稱 </th>
-                            <th scope="col" class="py-1 font-weight-bold h4">維修日期 </th>
-                            <th scope="col" class="py-1 font-weight-bold h4">維修事項</th>
-                            <th scope="col" class="py-1 font-weight-bold h4">維修進度</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                                世紀峰華
-                                            </a>
-                            </th>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                                2018/02/11
-                                            </a>
-                            </th>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                                壁癌處理
-                                            </a>
-                            </td>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                                維修中
-                                            </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                                JIA
-                                            </a>
-                            </th>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                               2018/02/02
-                                           </a>
-                            </th>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                            油漆工程
-                                        </a>
-                            </td>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                            維修中
-                                        </a>
-                                </i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                                世紀峰華
-                                            </a>
-                            </th>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                                 2018/01/03
-                                            </a>
-                            </th>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                                水電處理
-                                        </a>
-                            </td>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                        維修中
-                                    </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                                世紀峰華
-                                            </a>
-                            </th>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                            2017/12/04
-                                        </a>
-                            </th>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                            電器處理
-                                        </a>
-                            </td>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                            維修中
-                                        </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                                世紀之星
-                                            </a>
-                            </th>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                            2017/11/05
-                                        </a>
-                            </th>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                            家具維修
-                                        </a>
-                            </td>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                            待維修
-                                        </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                                HAUS
-                                            </a>
-                            </th>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                            2017/11/01
-                                        </a>
-                            </th>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                            其他維修
-                                        </a>
-                            </td>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">
-                                            待維修
-                                        </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm">
-                                <a href="casefinish.html">
-                                                舞樂天
-                                            </a>
-                            </th>
-                            <th class="py-1 fontsm"><a href="E_progress.html">2017/10/17</a>
-                            </th>
-                            <td class="py-1 fontsm"><a href="E_progress.html">其他維修</a>
-                            </td>
-                            <td class="py-1 fontsm"><a href="E_progress.html">待維修</a>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--/.Panel 1-->
-            <!--Panel 2-->
-            <div class="tab-pane fade" id="New" role="tabpanel">
-                <table class="table table-striped text-center">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="py-1 font-weight-bold h4">報修類別</th>
-                            <th scope="col" class="py-1 font-weight-bold h4">待修情形</th>
-                            <th scope="col" class="py-1 font-weight-bold h4">建案名稱 </th>
-                            <th scope="col" class="py-1 font-weight-bold h4">戶號</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="">
-                            <th class="py-1 fontsm "><a href="case.html">水電類</a></th>
-                            <td class="py-1 fontsm "><a href="case.html">水管漏水</a></td>
-                            <td class="py-1 fontsm "><a href="case.html">豐花園</a></td>
-                            <td class="py-1 fontsm "><a href="case.html">3-9</a></td>
-
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm "><a href="case.html">水電類</a></th>
-                            <td class="py-1 fontsm "><a href="case.html">水管漏水</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">七期</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">3-12</a></td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm "><a href="case.html">油漆類</a></th>
-                            <td class="py-1 fontsm "><a href="case.html">壁癌</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">豐花園</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">3-13</a></td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm "><a href="case.html">電機類</a></th>
-                            <td class="py-1 fontsm "><a href="case.html">浴室抽風損壞</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">水岸</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">8-13</a></td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm "><a href="case.html">水電類</a></th>
-                            <td class="py-1 fontsm "><a href="case.html">水龍頭爆炸</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">水岸</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">13-13</a></td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm "><a href="case.html">其他類</a></th>
-                            <td class="py-1 fontsm "><a href="case.html">大門斷裂</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">豐花園</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">5-13</a></td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm "><a href="case.html">水電類</a></th>
-                            <td class="py-1 fontsm "><a href="case.html">浴室排水堵塞</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">七期</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">3-6</a></td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm "><a href="case.html">水電類</a></th>
-                            <td class="py-1 fontsm "><a href="case.html">水管漏水</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">七期</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">12-1</a></td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm "><a href="case.html">水電類</a></th>
-                            <td class="py-1 fontsm "><a href="case.html">水管漏水</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">七期</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">8-1</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--/.Panel 2-->
-        </div>
-    </div>
-    </div>
-
-
-
-
-
-
-
-
-
-    /////////////////////
-    <div class="container pt-3">
-        <div class="row mt-4">
-            <div class="col-4">
-                <span class="h2">案件</span>
-            </div>
-            <div class="switch col-6">
-                <ul class="nav nav-tabs nav-justified bg-indigo">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#Yet_Finish" role="tab">待完成</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#New" role="tab">新案件</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="row tab-content card mt-4" id="min-h">
-            <!--Panel 1-->
-            <div class="tab-pane fade in show active" id="Yet_Finish" role="tabpanel">
-                <table class="table table-striped text-center">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="py-1 font-weight-bold h4">建案名稱 </th>
-                            <th scope="col" class="py-1 font-weight-bold h4">維修日期 </th>
-                            <th scope="col" class="py-1 font-weight-bold h4">維修事項</th>
-                            <th scope="col" class="py-1 font-weight-bold h4">維修進度</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">世紀峰華</a>
-                            </th>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">2018/02/11</a>
-                            </th>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">壁癌處理</a>
-                            </td>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">維修中</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">JIA</a>
-                            </th>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">2018/02/02</a>
-                            </th>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">油漆工程</a>
-                            </td>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">維修中</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">世紀峰華</a>
-                            </th>
-                            <th class="py-1 fontsm">
-                                <a href="E_progress.html">2018/01/03</a>
-                            </th>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">水電處理</a>
-                            </td>
-                            <td class="py-1 fontsm">
-                                <a href="E_progress.html">維修中</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--/.Panel 1-->
-            <!--Panel 2-->
-            <div class="tab-pane fade" id="New" role="tabpanel">
-                <table class="table table-striped text-center">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="py-1 font-weight-bold h4">報修類別</th>
-                            <th scope="col" class="py-1 font-weight-bold h4">待修情形</th>
-                            <th scope="col" class="py-1 font-weight-bold h4">建案名稱 </th>
-                            <th scope="col" class="py-1 font-weight-bold h4">戶號</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="">
-                            <th class="py-1 fontsm "><a href="case.html">水電類</a></th>
-                            <td class="py-1 fontsm "><a href="case.html">水管漏水</a></td>
-                            <td class="py-1 fontsm "><a href="case.html">豐花園</a></td>
-                            <td class="py-1 fontsm "><a href="case.html">3-9</a></td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm "><a href="case.html">水電類</a></th>
-                            <td class="py-1 fontsm "><a href="case.html">水管漏水</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">七期</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">3-12</a></td>
-                        </tr>
-                        <tr>
-                            <th class="py-1 fontsm "><a href="case.html">油漆類</a></th>
-                            <td class="py-1 fontsm "><a href="case.html">壁癌</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">豐花園</a></td>
-                            <td class="py-1 fontsm"><a href="case.html">3-13</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--/.Panel 2-->
-        </div>
-    </div>
+                            if (date1 == false || date2 == false || date3 == false) {
+                                document.getElementById("time_err").innerHTML = `<p class="red-text">還沒選擇日期</p>`;
+                            }
+                            else if (date1 < t1 || date2 < t1 || date3 < t1) {
+                                document.getElementById("time_err").innerHTML = `<p class="red-text">日期已經過期</p>`;
+                            }
+                            else {
+                                if (time1 == null || time2 == null || time3 == null || time4 == null || time5 == null || time6 == null) {
+                                    document.getElementById("time_err").innerHTML = `<p class="red-text">還沒選擇時間</p>`;
+                                }
+                                else if (time1 == time2 || time3 == time4 || time5 == time6) {
+                                    document.getElementById("time_err").innerHTML = `<p class="red-text">時間選擇相同</p>`;
+                                }
+                                else {
+                                    if (time1 > time2 || time3 > time4 || time5 > time6) {
+                                        document.getElementById("time_err").innerHTML = `<p class="red-text">時間選擇有誤</p>`;
+                                    }
+                                    else {
+                                        document.getElementById("time_err").innerHTML = `<p class="red-text">時間選擇正確</p>`;
+                                        //do repair action;
+                                        //(new repair_do_repair_action('repair','do_repair_action','body')).run()
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    -->

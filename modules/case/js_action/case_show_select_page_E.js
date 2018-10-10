@@ -25,7 +25,7 @@ class case_show_select_page_E extends ActionHandler {
 
 
                 console.log(test);
-                console.log(ds);
+                console.log(obj);
                 console.log(ds[0]); //every user 0-1-2...
                 console.log(ds[0][0]); //every case alldata
                 console.log(ds[0][0]["repair_type_id"]);
@@ -57,7 +57,7 @@ class case_show_select_page_E extends ActionHandler {
                                 <div class="row tab-content card mt-4" id="min-h">
                                 
                                     <div class="tab-pane fade in show active" id="Yet_Finish" role="tabpanel">
-                                        <table class="table table-striped text-center">
+                                        <table class="table table-striped text-center touchtable">
                                             <thead>
                                                 <tr>
                                                     <th scope="col" class="py-1 font-weight-bold h4">建案名稱 </th>
@@ -79,22 +79,29 @@ class case_show_select_page_E extends ActionHandler {
                         //do nothing
                     }
                     else {
-                        for (var j in ds[0]) {
+                        for (var j in ds[i]) {
                             if (ds[i][j]["status"] == "unfinish") {
                                 contenta2 += `
-                                    <tr>
+                                    <tr data-case_id="${ds[i][j]['id']}">
                                         <a onclick="(new case_show_case_page_E('case','show_case_page_E','body','${ds[0][j]["id"]}')).run();">
                                             <th class="py-1 fontsm">
-                                                <a onclick="(new case_show_case_page_E('case','show_case_page_E','body','${ds[0][j]["id"]}')).run();">${na[0]["name"]}</a>
+                                                ` + obj['buildingname'][0]['name'] + `
                                             </th>
                                             <th class="py-1 fontsm">
-                                                <a href="">${ds[0][j][0]}</a>
+                                                `;
+                                if (obj["check_repair_date"][i][j]["repair_date"] != "尚無") {
+                                    contenta2 += st_time_to_date(obj["check_repair_date"][i][j]["repair_date"]);
+                                }
+                                else {
+                                    contenta2 += obj["check_repair_date"][i][j]["repair_date"];
+                                }
+                                contenta2 += `
                                             </th>
                                             <th class="py-1 fontsm">
-                                                <a href="">${ds[0][j]["title"]}</a>
+                                                ${ds[i][j]["title"]}
                                             </th>
                                             <th class="py-1 fontsm">
-                                                <a href="">待完成</a>
+                                                ` + obj["check_repair_date"][i][j]["check_repair_date"] + `
                                             </th>
                                         </a>
                                     </tr>`;
@@ -102,10 +109,10 @@ class case_show_select_page_E extends ActionHandler {
                             else if (ds[i][j]["status"] == "new") {
                                 ns = sn(ds[i][j]["repair_type_id"]);
                                 contentb2 += `
-                                    <tr class="">
-                                        <th class="py-1 fontsm "><a >${ns}</a></th>
-                                        <td class="py-1 fontsm "><a >${ds[i][j]["title"]}</a></td>
-                                        <td class="py-1 fontsm "><a >${na[0]["name"]}</a></td>
+                                    <tr class="" data-case_id="${ds[i][j]['id']}">
+                                        <th class="py-1 fontsm ">${ns}</th>
+                                        <td class="py-1 fontsm ">${ds[i][j]["title"]}</td>
+                                        <td class="py-1 fontsm ">${na[0]["name"]}</td>
                                         <td class="py-1 fontsm "><a onclick="(new case_show_case_page_E('case','show_case_page_E','body','` + ds[i][j]["id"] + `')).run();">A7-1</a></td>
                                     </tr>`; //${ds[i][j]["id"]}
                             }
@@ -119,7 +126,7 @@ class case_show_select_page_E extends ActionHandler {
 
 
                 contentb1 = `<div class="tab-pane fade" id="New" role="tabpanel">
-                                        <table class="table table-striped text-center">
+                                        <table class="table table-striped text-center touchtable">
                                             <thead>
                                                 <tr>
                                                     <th scope="col" class="py-1 font-weight-bold h4">報修類別</th>
@@ -150,6 +157,11 @@ class case_show_select_page_E extends ActionHandler {
                     return tt3;
                 };
 
+                function st_time_to_date(tt1) {
+                    var tt3;
+                    tt3 = tt1.split(" ")[0].split("-")[0] + "/" + tt1.split(" ")[0].split("-")[1] + "/" + tt1.split(" ")[0].split("-")[2];
+                    return tt3;
+                };
                 $('#' + this.position_id).html(content);
 
                 function sn(n1) { //sn=setname
@@ -179,6 +191,13 @@ class case_show_select_page_E extends ActionHandler {
                     }
                     return n;
                 };
+                $('.touchtable tbody tr').click(
+                    function() {
+
+                        var tcase_id = $(this).data('case_id');
+                        (new case_show_case_page_E('case', 'show_case_page_E', 'body', tcase_id)).run();
+
+                    });
 
 
 
