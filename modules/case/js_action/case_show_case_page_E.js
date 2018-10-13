@@ -23,6 +23,7 @@ class case_show_case_page_E extends ActionHandler {
                 this.loadModuleScript("case", "show_repair_type_E");
                 this.loadModuleScript("case", "do_confirm_E");
                 this.loadModuleScript("case", "do_unfinish_E");
+                this.loadModuleScript("case", "sign_E");
                 this.loadModuleScript("contact", "show_contact_E");
                 this.loadModuleScript("repair", "show_repair_history_E");
                 (new repair_show_apply_date_E('repair', 'show_apply_date_E', 'applydate', obj['rph_id'])).run();
@@ -43,7 +44,7 @@ class case_show_case_page_E extends ActionHandler {
                 <!-- /.Navbar -->
             </header>
         
-            <div class="container mt-4 pt-0 font30">
+            <div class="container mt-4 pt-0 font30 px-0">
                 <div class="row border boxShadow mt-2">
                     <div class="col-12">
                         <div class="row">
@@ -188,7 +189,8 @@ class case_show_case_page_E extends ActionHandler {
                 }
                 else if (obj['check_finish'] != 10) {
                     content += `
-                        <div>
+                    <div id="sign" class="row"></div>
+                        <div id="buttons">
                             <button type="button" class="btn btn-indigo font30" id="finish">完成維修</button>
                             <button type="button" class="btn btn-indigo font30" id="unfinish">待完成</button>
                             <a href="index.html"><button type="button" class="btn btn-danger font30">案件退回</button></a>
@@ -209,7 +211,7 @@ class case_show_case_page_E extends ActionHandler {
                 //     </div>
                 //     `;
 
-                if (obj['check_finish'] == 10) {
+                if (obj['check_finish'] == 10 && obj['case_data'][0]['user_rank'] != null) {
                     content += `
                     <div class="col-12 mt-2 ">
                         客戶評價:`;
@@ -240,6 +242,7 @@ class case_show_case_page_E extends ActionHandler {
                         </div>
                     `;
                 }
+                //content += `<div id="sign"></div>`;
                 content += `
                     </div>
                         </div>
@@ -326,10 +329,10 @@ class case_show_case_page_E extends ActionHandler {
                                 document.getElementById("err_msg").innerHTML = '<font color="red" size="4">請輸入時間</font>';
                             }
                             else {
-                                date = $("#pick_date").val();
+                                date = $("#pick_dateo").val();
                                 if (date) {
-                                    datetime = C_date(date) + " " + time + ":00";
-                                    console.log(datetime);
+                                    datetime = date + " " + time + ":00";
+                                    console.log("Datetime " + datetime);
                                     (new case_do_confirm_E('case', 'do_confirm_E', 'body', obj['case_data'][0]['id'], company_id, datetime)).run();
                                 }
                                 else {
@@ -365,8 +368,17 @@ class case_show_case_page_E extends ActionHandler {
                 function check_repair_history(type) {
                     document.getElementById("unfinish_err").innerHTML = '';
                     if ($("#new_time").val() != null && $("#new_content").val() != null && $("#new_time").val() != "" && $("#new_content").val() != "") {
-                        console.log("new time " + $("#new_time").val());
-                        (new case_do_unfinish_E('case', 'do_unfinish_E', 'unfinish_err', $("#case_id").data("value"), type)).run();
+                        //console.log("new time " + $("#new_time").val());
+                        if (type == "unfinish") {
+
+                            (new case_do_unfinish_E('case', 'do_unfinish_E', 'unfinish_err', $("#case_id").data("value"), type)).run();
+                        }
+                        else {
+                            $("#contact").remove();
+                            $("#buttons").remove();
+                            (new case_sign_E('case', 'sign_E', 'sign')).run();
+                            //(new case_do_unfinish_E('case', 'do_unfinish_E', 'unfinish_err', $("#case_id").data("value"), type)).run();
+                        }
                     }
                     else {
                         document.getElementById("unfinish_err").innerHTML = '<font color="red" size="4">請輸入資料</font>';

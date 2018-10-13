@@ -50,4 +50,13 @@ tr.selected {
     color: #fff;
 }
 
+#canvas {}
+
+#canvasDiv {
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
 /* Your custom styles */

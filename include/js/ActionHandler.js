@@ -53,32 +53,32 @@ class ActionHandler {
         xhttp.open("POST", "module_dispatcher.php?module=" + this.module + "&action=" + this.php_action, true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(this.args);
-        /*
-                                if (data != null) {
-                                    this.prepareArgs(data);
-                                }
-                                else {
-                                    this.prepareArgs();
-                                }
 
-                                if (!this.php) {
-                                    this.showResult();
-                                    return;
-                                }
+        // if (data != null) {
+        //     this.prepareArgs(data);
+        // }
+        // else {
+        //     this.prepareArgs();
+        // }
 
-                                var parent = this;
-                                parent.ajax({
-                                    type: "POST",
-                                    url: "module_dispatcher.php?module=" + this.module + "&action=" + this.php_action,
-                                    data: this.args,
-                                    success: function(json_str) { parent.ajax_success(json_str); },
+        // if (!this.php) {
+        //     this.showResult();
+        //     return;
+        // }
+
+        // var parent = this;
+        // parent.ajax({
+        //     type: "POST",
+        //     url: "module_dispatcher.php?module=" + this.module + "&action=" + this.php_action,
+        //     data: this.args,
+        //     success: function(json_str) { parent.ajax_success(json_str); },
 
 
-                                    error: function(jqXHR) {
-                                        parent.ajax_error(jqXHR);
-                                    }
-                                });
-        */
+        //     error: function(jqXHR) {
+        //         parent.ajax_error(jqXHR);
+        //     }
+        // });
+
     }
     loadScript(src, id) {
         var script = document.getElementById(id);
@@ -96,5 +96,32 @@ class ActionHandler {
         this.loadScript(src, id);
         //return this.loadScript(src, id);
     }
+    show_dialog(title, body, footer) {
+        var dialog = `
+                    <div class="modal fade" id="__modalDialog__" role="dialog">
+                    <div class="modal-dialog">
 
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title" id="__modalTitle__">標題</h4>
+                        </div>
+                        <div class="modal-body" id="__modalBody__">訊息內文</div>
+                        <div class="modal-footer" id="__modalFooter__">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                `;
+        if ($("#__modalDialog__").length == 0) {
+            $('#' + this.position_id).append(dialog);
+        }
+        $('#__modalTitle__').html(title);
+        $('#__modalBody__').html(body);
+        $('#__modalFooter__').html(footer);
+        $('#__modalDialog__').modal({ show: true })
+    }
 }

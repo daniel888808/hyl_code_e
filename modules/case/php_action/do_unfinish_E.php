@@ -16,18 +16,31 @@
 		    $new_time = $post['new_time'];
 		    $new_content = $post['new_content'];
 		    $type=$post['type'];
+		    $pdf=$post['pdf'];
             $case_model = new case_model();
             $household_model= new household_model();
             $building_model= new building_model();
             $user_model = new user_profile_model();
             $repair_model= new repair_model();//要先找到Repair_history profile的Reservtime
             $return_value['status_code'] = 0;
-            
+            $return_value['pdf']=$pdf;
             $repair_history_id=$repair_model->get_last_repair_history_id($case_id);
             // $return_value['test'] = "content ".$new_time." time".$new_content;
             // $return_value['repair_id'] =$repair_history_id;
             // $return_value['case_id']=$case_id;
             $return_value['type']=$type;
+
+//$data = base64_decode($pdf);
+$data = $pdf;
+$pdf = str_replace('data:image/png;base64,', '', $pdf);
+$pdf = str_replace(' ', '+', $pdf);
+$fileData = base64_decode($pdf);
+//saving
+$fileName = $case_id.'.png';
+file_put_contents("/home/ubuntu/workspace/sign/".$fileName, $fileData);
+
+
+            
             $repair_model->update_repair_history("repair_content = '$new_content', work_time = '$new_time'","id=".$repair_history_id[0][0]);
             ini_set ( 'date.timezone' , 'Asia/Taipei' );
 			date_default_timezone_set('Asia/Taipei');

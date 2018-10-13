@@ -19,7 +19,11 @@
 
 <body id="bb">
 
-    <div id="canvasDiv"></div>
+
+    <div id="canvasDiv">
+        <canvas id="canvas" disable-scroll="true">
+        </canvas>
+    </div>
 
     <br>
 
@@ -29,9 +33,10 @@
 
     <script language="javascript">
         var canvasDiv = document.getElementById('canvasDiv');
-        var canvas = document.createElement('canvas');
+        var canvas = document.getElementById('canvas');
+        //var canvas = document.createElement('canvas');
         var screenwidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-
+        $("#canvas").bind("wheel mousewheel", function(e) { e.preventDefault() });
         var canvasWidth = screenwidth;
         var canvasHeight = 320;
         document.addEventListener('touchmove', onDocumentTouchMove, false);
@@ -39,8 +44,8 @@
         point.notFirst = false;
         canvas.setAttribute('width', canvasWidth);
         canvas.setAttribute('height', canvasHeight);
-        canvas.setAttribute('id', 'canvas');
-        canvasDiv.appendChild(canvas);
+        //canvas.setAttribute('id', 'canvas');
+        //canvasDiv.appendChild(canvas);
         if (typeof G_vmlCanvasManager != 'undefined') {
             canvas = G_vmlCanvasManager.initElement(canvas);
         }
@@ -57,6 +62,15 @@
             context.fillStyle = ptrn;
             context.fillRect(0, 0, canvas.width, canvas.height);
         }
+        ///
+        document.getElementById("canvas").onwheel = function(event) {
+            event.preventDefault();
+        };
+        document.getElementById("canvas").onmousewheel = function(event) {
+            event.preventDefault();
+        };
+        $("canvas").bind("wheel mousewheel", function(e) { e.preventDefault() });
+        //
         canvas.addEventListener("touchstart", function(e) {
             //console.log(e);
             var mouseX = e.touches[0].pageX - this.offsetLeft;
@@ -84,6 +98,18 @@
 
         });
 
+
+
+        // canvas.addEventListener("touchmove", function(e) {
+        //     var touch = e.touches[0];
+        //     var mouseEvent = new MouseEvent("mousemove", {
+        //         clientX: touch.clientX,
+        //         clientY: touch.clientY
+        //     });
+        //     canvas.dispatchEvent(mouseEvent);
+        // }, false);
+
+
         canvas.addEventListener("mousedown", function(e) {
             var mouseX = e.pageX - this.offsetLeft;
             var mouseY = e.pageY - this.offsetTop;
@@ -97,12 +123,14 @@
                 redraw();
             }
         });
+
         canvas.addEventListener("mouseup", function(e) {
             paint = false;
         });
         canvas.addEventListener("mouseleave", function(e) {
             paint = false;
         });
+
         document.getElementById("btn_clear").addEventListener("click", function() {
             canvas.width = canvas.width;
         });

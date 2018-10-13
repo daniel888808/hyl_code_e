@@ -8,15 +8,31 @@
         public function __construct() {
             parent::__construct();
         }
+        public function get_last_insert(){
+            $sql ="select LAST_INSERT_ID();";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchall();
+            if ($result != null) {
+                 $return_value = $result;
+             }
+            return $return_value[0][0];
+        }
         public function insert_user_profile($account,$password,$name,$phone,$type){
             $sql="INSERT INTO `user_profile` ( `account`,`password`,`name`,`phone`,`type` ) VALUES ( '$account','$password','$name','$phone','$type')";
             $stmt = $this->conn->prepare($sql);
             $return_value = $stmt->execute();
             return $return_value;
         }
+        public function delete_user_profile($userId){
+            $sql="DELETE FROM user_profile WHERE id = $userId";
+            $stmt = $this->conn->prepare($sql);
+            $return_value = $stmt->execute();
+            return $return_value;
+        }
         public function get_something_from_user_profile($something,$where){
             //$sql ="SELECT * FROM `user_profile` JOIN household_user on user_profile.id=household_user.user_profile_id JOIN household_profile ON household_user.household_profile_id=household_profile.id  WHERE user_profile.id=$user";
-            $sql="SELECT ".$something." FROM `user_profile` WHERE ".$where;
+            $sql="SELECT ".$something." FROM `user_profile` WHERE $where";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetchall();
@@ -38,15 +54,14 @@
             return $return_value;
 
         }
-        public function update_user_info($name,$phone,$email,$password,$user){
-            $sql="UPDATE user_profile SET name=:name, phone=:phone, account=:email, password=:password Where user_profile.id=$user";
+        public function update_user_info($name,$phone,$account,$password,$type,$user){
+            $sql="UPDATE user_profile SET name=:name, phone=:phone, account=:account, password=:password, type=:type Where user_profile.id=$user";
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute(array(':name'=>$name, ':phone'=>$phone, ':email'=>$email ,':password'=>$password));
+            $return_value = $stmt->execute(array(':name'=>$name, ':phone'=>$phone, ':account'=>$account ,':password'=>$password,':type'=>$type));
             // if ($result != null) {
             //     $return_value['data_set'] = $result;
             // }
-            //return $return_value;
-
+            return $return_value;
         }
     }
     

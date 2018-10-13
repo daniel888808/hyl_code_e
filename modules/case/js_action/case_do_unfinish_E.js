@@ -11,6 +11,8 @@ class case_do_unfinish_E extends ActionHandler {
         this.addArgs('type', this.type);
         this.addArgsbyid('new_time');
         this.addArgsbyid('new_content');
+        this.addArgsbyid('pdf');
+        //console.log('img ' + $("#pdf").val());
 
         //this.addArgs('repair_type_id', this.repair_type_id);
     }

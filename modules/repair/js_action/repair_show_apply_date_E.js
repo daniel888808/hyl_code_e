@@ -69,7 +69,7 @@ class repair_show_apply_date_E extends ActionHandler {
                                         <div class="form-check">
                                             <div class="row my-0">
                                                 <div class="col-6">
-                                                    <input type="date" class="form-control" id="pick_date" placeholder="Enter month">
+                                                    <input type="date" class="form-control" id="pick_dateo" placeholder="Enter month">
                                                 </div>
                                                 <div class="col-6">
                                                     <input placeholder="時間" type="text" id="input_starttime4" class="form-control timepicker">
@@ -106,7 +106,7 @@ class repair_show_apply_date_E extends ActionHandler {
                                         <div class="form-check">
                                             <div class="row my-0">
                                                 <div class="col-6">
-                                                    <input type="date" class="form-control" id="pick_date" placeholder="Enter month">
+                                                    <input type="date" class="form-control" id="pick_dateo" placeholder="Enter month">
                                                 </div>
                                                 <div class="col-6">
                                                     <input placeholder="時間" type="text" id="input_starttime4" class="form-control timepicker">
