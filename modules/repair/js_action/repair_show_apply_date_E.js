@@ -93,15 +93,12 @@ class repair_show_apply_date_E extends ActionHandler {
                      <div class="col-12 mt-4" >
                                     <span>選擇適用時間</span>
                     </div>
-                    <div class="col-12 mt-4" >
-                                    <span>客戶尚未選擇時間</span>
-                    </div>
                             `;
                 content += `
                                
                                 <div class=" mt-3 ">
                                     <div class="form-check" id="time4">
-                                        <input class="form-check-input " name="group100" type="radio" id="radio104">
+                                        <input class="form-check-input " name="group100" type="radio" id="radio104" checked="true">
                                         <label class="form-check-label font30" for="radio104">其他:</label>
                                         <div class="form-check">
                                             <div class="row my-0">

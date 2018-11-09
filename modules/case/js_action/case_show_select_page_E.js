@@ -2,6 +2,7 @@ class case_show_select_page_E extends ActionHandler {
     constructor(module, action, position_id) {
         super(module, action);
         this.position_id = position_id;
+        
 
     }
     prepareArgs() {
@@ -14,7 +15,8 @@ class case_show_select_page_E extends ActionHandler {
             var json_str = xhttp.responseText;
             var obj = JSON.parse(json_str);
             if (obj['status_code'] === 0) {
-                var ds = obj['data_set'];
+                //var ds = obj['data_set'];
+                var ds = obj['j_case'];
                 var content = "";
                 var t1;
                 var da = new Date();
@@ -26,9 +28,9 @@ class case_show_select_page_E extends ActionHandler {
 
                 console.log(test);
                 console.log(obj);
-                console.log(ds[0]); //every user 0-1-2...
-                console.log(ds[0][0]); //every case alldata
-                console.log(ds[0][0]["repair_type_id"]);
+                //console.log(ds[0]); //every user 0-1-2...
+                //console.log(ds[0][0]); //every case alldata
+                //console.log(ds[0][0]["repair_type_id"]);
 
                 var contenta = "";
                 var contentb = "";
@@ -74,51 +76,52 @@ class case_show_select_page_E extends ActionHandler {
                         </div>`;
 
 
+                // for (var i = 0; i < ds.length; i++) {
+                //     if (ds[i] == null) {
+                //         //do nothing
+                //     }
+                //     else {
+                //for (var j in ds[i]) {
                 for (var i = 0; i < ds.length; i++) {
-                    if (ds[i] == null) {
-                        //do nothing
-                    }
-                    else {
-                        for (var j in ds[i]) {
-                            if (ds[i][j]["status"] == "unfinish") {
-                                contenta2 += `
-                                    <tr data-case_id="${ds[i][j]['id']}">
-                                        <a onclick="(new case_show_case_page_E('case','show_case_page_E','body','${ds[0][j]["id"]}')).run();">
+                    if (ds[i]["status"] == "unfinish") {
+                        contenta2 += `
+                                    <tr data-case_id="${ds[i]['id']}">
+                                        <a onclick="(new case_show_case_page_E('case','show_case_page_E','body','${ds[0]["id"]}')).run();">
                                             <th class="py-1 fontsm">
-                                                ` + obj['buildingname'][0]['name'] + `
+                                                ` + ds[i]['name'] + `
                                             </th>
                                             <th class="py-1 fontsm">
                                                 `;
-                                if (obj["check_repair_date"][i][j]["repair_date"] != "尚無") {
-                                    contenta2 += st_time_to_date(obj["check_repair_date"][i][j]["repair_date"]);
-                                }
-                                else {
-                                    contenta2 += obj["check_repair_date"][i][j]["repair_date"];
-                                }
-                                contenta2 += `
+                        if (obj["check_repair_date"][i]["repair_date"] != "尚無") {
+                            contenta2 += st_time_to_date(obj["check_repair_date"][i]["repair_date"]);
+                        }
+                        else {
+                            contenta2 += obj["check_repair_date"][i]["repair_date"];
+                        }
+                        contenta2 += `
                                             </th>
                                             <th class="py-1 fontsm">
-                                                ${ds[i][j]["title"]}
+                                                ${ds[i]["title"]}
                                             </th>
                                             <th class="py-1 fontsm">
-                                                ` + obj["check_repair_date"][i][j]["check_repair_date"] + `
+                                                ` + obj["check_repair_date"][i]["check_repair_date"] + `
                                             </th>
                                         </a>
                                     </tr>`;
-                            }
-                            else if (ds[i][j]["status"] == "new") {
-                                ns = sn(ds[i][j]["repair_type_id"]);
-                                contentb2 += `
-                                    <tr class="" data-case_id="${ds[i][j]['id']}">
+                    }
+                    else if (ds[i]["status"] == "new") {
+                        ns = ds[i]["namech"];
+                        contentb2 += `
+                                    <tr class="" data-case_id="${ds[i]['id']}">
                                         <th class="py-1 fontsm ">${ns}</th>
-                                        <td class="py-1 fontsm ">${ds[i][j]["title"]}</td>
-                                        <td class="py-1 fontsm ">${na[0]["name"]}</td>
-                                        <td class="py-1 fontsm "><a onclick="(new case_show_case_page_E('case','show_case_page_E','body','` + ds[i][j]["id"] + `')).run();">A7-1</a></td>
+                                        <td class="py-1 fontsm ">${ds[i]["title"]}</td>
+                                        <td class="py-1 fontsm ">` + ds[i]['name'] + `</td>
+                                        <td class="py-1 fontsm "><a onclick="(new case_show_case_page_E('case','show_case_page_E','body','` + ds[i]["id"] + `')).run();">` + ds[i]['number'] + `</a></td>
                                     </tr>`; //${ds[i][j]["id"]}
-                            }
-                        }
                     }
                 }
+                //     }
+                // }
 
 
 

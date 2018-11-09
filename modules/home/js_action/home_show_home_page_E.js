@@ -21,10 +21,12 @@ class home_show_home_page_E extends ActionHandler {
             this.loadModuleScript("case", "show_search_page_E");
             this.loadModuleScript("case", "do_unfinish_E");
             this.loadModuleScript("case", "sign_E");
+            this.loadModuleScript("case", "show_search_result_E");
             this.loadModuleScript("repair", "show_apply_date_E"); //temp
             this.loadModuleScript("repair", "show_repair_history_E");
             this.loadModuleScript("repair_company", "show_repair_company_E"); //temp
             this.loadModuleScript("contact", "show_contact_E");
+
 
 
 
@@ -52,8 +54,6 @@ class home_show_home_page_E extends ActionHandler {
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" onclick="(new login_do_logout_action('login','do_logout_action','body')).run();">登出</a>
-                        <a class="dropdown-item" onclick="(new case_show_case_page_E('case','show_case_page_E','body','1')).run();">測試case</a>
-                    
                     </div>
                 </li>
             </ul>
@@ -131,7 +131,12 @@ class home_show_home_page_E extends ActionHandler {
     </script>
 
 `;
-
+                $(function() {
+                    $('#myTab a:last').tab('show')
+                })
+                $(document).ready(function() {
+                    $('.mdb-select').material_select();
+                });
                 document.getElementById(this.position_id).innerHTML = str;
 
 

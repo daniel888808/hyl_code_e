@@ -41,6 +41,17 @@
             return $return_value;
 
         }
+        public function get_something_from_household_user_join($something,$join,$where){//從household_user取
+            $sql ="SELECT ".$something." FROM `household_user` JOIN $join WHERE $where";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchall();
+            if ($result != null) {
+                $return_value = $result;
+            }
+            return $return_value;
+
+        }
         
         
     }

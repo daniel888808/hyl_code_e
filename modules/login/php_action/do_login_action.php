@@ -1,14 +1,14 @@
 <?php
     require_once 'include/php/action_listener.php';
     require_once 'include/php/event_message.php';
-    require_once 'modules/user_profile/user_profile_api.php';
+    require_once 'modules/user_profile/user_profile_api_E.php';
     //require_once  'modules/login/php_action/login_model.php';
     
     class do_login_action implements action_listener{
         public function actionPerformed(event_message $em) {
-            $obj = user_profile_api::check_account($em);
+            $obj = user_profile_api_E::check_account($em);
             if($obj['status_code']== 0){ //0為登入成功 -100失敗(帳密錯誤)
-                if($obj['data_set'][0]['id']==4){
+                if($obj['data_set'][0]['id']!=null){
                     $obj['status_code']= 1;
                 }
                 //return json_encode($obj);
@@ -74,9 +74,11 @@
             }
             session_start();
             $post = $em->getPost();
-            $_SESSION['userid'] = $obj['data_set'][0]['id'];
-            $_SESSION['user'] = $obj['data_set'][0]['name'];
-            $_SESSION['useracc'] = $obj['data_set'][0]['account'];
+            if($obj['data_set'][0]['id']!='' && $obj['data_set'][0]['id']!=null){
+                $_SESSION['userid'] = $obj['data_set'][0]['id'];
+                $_SESSION['user'] = $obj['data_set'][0]['name'];
+                $_SESSION['useracc'] = $obj['data_set'][0]['account'];
+            }
             return json_encode($obj);
         }        
     }

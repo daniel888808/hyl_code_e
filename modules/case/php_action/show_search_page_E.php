@@ -12,30 +12,11 @@
             $case_model = new case_model();
             $household_model= new household_model();
             $building_model= new building_model();
-            
-            $construction_project=$building_model->get_something_from_construction_project("*",$household_data[0]['construction_project_id']);
-            $return_value['construction_project']=$construction_project[0]['name'];
-           // $building_model= new building_model();
-           // $construction_project=$building_model->get_something_from_construction_project("*",$household_data[0]['construction_project_id']);
-            // $household_id = $household_model->get_something_from_household_user("id","user_profile_id =".$user_id);
-            // $allcase = $case_model->get_something_from_case_profile("*","household_user_id=".$household_id[0][0]);
-            $allcase="1";
-            
-            
-            if($allcase){
-                $ds = $allcase;
-                $return_value['status_code'] = 0;
-                $return_value['status_message'] = 'Execute Success';
-                $return_value['data_set'] = $ds;
-                $return_value['sql'] = $sql;
-            }
-            
-            else{
-                $return_value['status_code'] = -1;
-                $return_value['status_message'] = '最近沒有維修紀錄';
-                $return_value['sql'] = $sql;
-                $return_value['$household_id']= $household_id;
-            }
+            $building = $building_model->get_construction_project_data("*","manage_id=$user_id");
+            //$construction_project=$building_model->get_something_from_construction_project("*",$household_data[0]['construction_project_id']);
+            $return_value['construction_project']=$building;
+            $return_value['status_code'] = 0;
+            $return_value['status_message'] = 'Execute Success';
             
             return json_encode($return_value);
         }        

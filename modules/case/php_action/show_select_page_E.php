@@ -10,13 +10,30 @@
              if(isset($_SESSION['useracc'])){
 			    $user_id=$_SESSION['userid'];
 		    }
-		    
+		    //SELECT case_profile.status, construction_project.name,case_profile.id,case_profile.title,repair_type.namech,household_profile.number FROM `case_profile` JOIN household_user ON case_profile.household_user_id=household_user.id JOIN household_profile ON household_user.household_profile_id = household_profile.id JOIN construction_project ON household_profile.construction_project_id = construction_project.id JOIN repair_type on case_profile.repair_type_id=repair_type.id WHERE construction_project.manage_id=4 AND (case_profile.status ='new' OR case_profile.status='unfinish') order by case_profile.id DESC
             $case_model = new case_model();
             $household_model= new household_model();
             $building_model= new building_model();
             $repair_model= new repair_model();
             
-            
+            $where=" construction_project.manage_id= $user_id AND (case_profile.status ='new' OR case_profile.status='unfinish') order by case_profile.id DESC";
+            $join='JOIN household_user ON case_profile.household_user_id=household_user.id JOIN household_profile ON household_user.household_profile_id = household_profile.id JOIN construction_project ON household_profile.construction_project_id = construction_project.id JOIN repair_type on case_profile.repair_type_id=repair_type.id';
+            $something='construction_project.name,case_profile.id,case_profile.title,repair_type.namech,household_profile.number,case_profile.status';
+            $j_case=$case_model->get_something_from_case_profile_join($something,$join,$where);
+            for($a=0;$a<sizeof($j_case);$a++){
+                $repair_history_id=$repair_model->get_last_repair_history_id($j_case[$a]["id"]);
+                $repair_date=$repair_model->get_something_from_repair_history("reservetime","id=".$repair_history_id[0][0]);
+                if($repair_date[0][0]){
+                        $check_repair_datej[$a]["repair_date"]=$repair_date[0][0];
+                        $check_repair_datej[$a]["check_repair_date"]="待維修";
+                        // array_push($check_repair_date,"yes");
+                    }else{
+                        $check_repair_datej[$a]["repair_date"]="尚無";
+                        $check_repair_datej[$a]["check_repair_date"]="待確認時間";
+                        //array_push($check_repair_date,"no");
+                    }
+                
+            }
             
             $building_id=$building_model->get_id_from_construction_project("id",$user_id);
             
@@ -89,10 +106,11 @@
                 $return_value['status_code'] = 0;
                 $return_value['status_message'] = 'Execute Success';
                 $return_value['data_set'] = $ds;
-                $return_value['check_repair_date']=$check_repair_date;
+                $return_value['check_repair_date']=$check_repair_datej;
+                $return_value['check_repair_datej']=$check_repair_datej;
                 $return_value['buildingname'] = $building_name;
                 $return_value['test']=$household_data;
-                $return_value['sql'] = $sql;
+                $return_value['j_case'] = $j_case;
             }
             
             else{

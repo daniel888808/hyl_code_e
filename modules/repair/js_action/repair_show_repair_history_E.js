@@ -15,7 +15,7 @@ class repair_show_repair_history_E extends ActionHandler {
             var json_str = xhttp.responseText;
             console.log(json_str);
             var obj = JSON.parse(json_str);
-            if (obj['status_code'] == 1) {
+            if (obj['status_code'] == 1 || obj['check_finish'] == "finish") {
                 //var ds = obj['repair_company'];
                 console.log(obj);
                 //this.loadModuleScript("home", "show_home_page_E");
@@ -39,7 +39,7 @@ class repair_show_repair_history_E extends ActionHandler {
                         content += `<tr>
                                     <th class="font30" scope="row">` + st_time_to_min(obj['repair_history'][i]['reservetime']) + `</th>
                                     <td class="font30">` + obj['repair_com'][i] + `</td>
-                                    <td class="font30">` + obj['repair_history'][i]['work_time'] + `</td>
+                                    <td class="font30">` + obj['repair_history'][i]['work_time'] + `小時</td>
                                     <td class="font30">` + obj['repair_history'][i]['repair_content'] + `</td>
                                 </tr>`;
 
@@ -79,7 +79,7 @@ class repair_show_repair_history_E extends ActionHandler {
                     content += `<tr>
                                     <th class="font30" scope="row" width="25%">` + st_time_to_min(obj['repair_history'][i]['reservetime']) + `</th>
                                     <td class="font30" width="25%">` + obj['repair_com'][i] + `</td>
-                                    <td class="font30" width="25%">` + obj['repair_history'][i]['work_time'] + `</td>
+                                    <td class="font30" width="25%">` + obj['repair_history'][i]['work_time'] + `小時</td>
                                     <td class="font30" width="25%">` + obj['repair_history'][i]['repair_content'] + `</td>
                                 </tr>`;
 
@@ -89,7 +89,7 @@ class repair_show_repair_history_E extends ActionHandler {
                                 <tr>
                                     <th class="font30" scope="row" width="25%">` + st_time_to_min(obj['repair_history'][obj['repair_history'].length - 1]['reservetime']) + `</th>
                                     <td class="font30" width="25%">` + obj['repair_com'][obj['repair_history'].length - 1] + `</td>
-                                    <td class="font30" width="25%"><input type="text" id="new_time" class="form-control" style = "font-size:30px"></td>
+                                    <td class="font30" width="25%"><div class="row"><div class="col-6 mr-0 pr-0"><input type="text" id="new_time" class="form-control" style = "font-size:30px"></div><div class="col-6">小時</div></div></td>
                                     <td class="font30" width="25%"><input type="text" id="new_content" class="form-control" style = "font-size:30px"></td>
                                 </tr>
                                 <tr>

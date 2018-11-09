@@ -7,9 +7,17 @@
 </head>
 
 <body>
+    <script src="include/lib/CryptoJSv3.1.2/rollups/aes.js" id="CryptoJS_AES"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link id="themecss" rel="stylesheet" type="text/css" href="lib/shieldui/all.min.css" />
+    <!--<script type="text/javascript" src="lib/shieldui/shieldui-lite-all.min.js"></script>-->
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>-->
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/core.js"></script>-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
     <script>
         $(document).ready(function() {
             //demo1:
@@ -29,6 +37,13 @@
                     //$(this).find('input[type="radio"]').attr('checked', 'checked');
                 }
             );
+            var value = 'e3';
+            value = CryptoJS.MD5(value);
+            alert(value);
+
+
+            //var hash = CryptoJS.MD5(value).parse(MD5);
+            //alert(hash);
         });
         //-->
     </script>

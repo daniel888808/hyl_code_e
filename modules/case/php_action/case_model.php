@@ -67,6 +67,17 @@
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
         }
+        public function get_something_from_case_profile_join($something,$join,$where){//從case_profile取
+            $sql ="SELECT ".$something." FROM `case_profile` $join WHERE $where";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchall();
+            if ($result != null) {
+                $return_value = $result;
+            }
+            return $return_value;
+
+        }
         
     }
     

@@ -1,7 +1,6 @@
 <?php
     require_once 'include/php/action_listener.php';
     require_once 'include/php/event_message.php';
-    require_once 'modules/user_profile/user_profile_api.php';
     //require_once  'modules/login/php_action/login_model.php';
     
     class do_logout_action implements action_listener{

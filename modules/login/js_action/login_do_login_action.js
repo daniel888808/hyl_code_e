@@ -7,10 +7,20 @@ class login_do_login_action extends ActionHandler {
     prepareArgs() {
         this.php = true;
         this.addArgsbyid('account');
-        this.addArgsbyid('password');
+        var enpassword = $("#password").val();
+        enpassword = CryptoJS.MD5(enpassword);
+        //alert(enpassword);
+        //console.log(enpassword);
+        this.addArgs('password', enpassword);
+        //this.addArgsbyid('password');
     }
     ajax_success(xhttp) {
         try {
+            //this.loadScript("include/lib/CryptoJSv3.1.2/rollups/aes.js", "CryptoJS_AES");
+            //var value = '255522';
+            // value = CryptoJS.MD5(value);
+            // alert('2' + value);
+            //var hash = CryptoJS.MD5(value).toString();
             var json_str = xhttp.responseText;
             var obj = JSON.parse(json_str);
 

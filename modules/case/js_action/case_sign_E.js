@@ -21,35 +21,8 @@ class case_sign_E extends ActionHandler {
                 //this.loadModuleScript("home", "show_home_page_E");
                 var content = "";
                 content += `
-                <div>
+                <div id="sign_area">
                 <div class="ml-3">客戶簽名</div>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCart">Launch modal</button>
-                    
-                    <!-- Modal: modalCart -->
-                    <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                      aria-hidden="true" style="width:100%;">
-                      <div class="modal-dialog modal-lg" role="document" >
-                        <div class="modal-content" >
-                          <!--Header-->
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
-                            </button>
-                          </div>
-                          <!--Body-->
-                          <div class="modal-body" id="sign_penal">
-                            <div id="canvasDiv1"></div>
-                            
-                    
-                          </div>
-                          <!--Footer-->
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal" id="btn_clear1">清除</button>
-                            <button class="btn btn-primary" id="btn_submit1">提交</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                     
                         <div id="canvasDiv">
                         
@@ -68,18 +41,38 @@ class case_sign_E extends ActionHandler {
                 `;
                 $('#' + this.position_id).html(content);
                 this.loadModuleScript("case", "do_unfinish_E");
+
                 var canvasDiv = document.getElementById('canvasDiv');
                 //var canvasDiv1 = document.getElementById('canvasDiv1');
                 var canvas = document.getElementById('canvas');
                 //var canvas = document.createElement('canvas');
                 var screenwidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 
-                console.log("width" + $("#sign_penal").width());
+
                 //var canvasWidth = $("#sign_penal").width();
                 var canvasWidth = screenwidth;
                 //var canvasWidth = 800;
                 var canvasHeight = 320;
-                document.addEventListener('touchmove', onDocumentTouchMove, false);
+
+
+                document.body.addEventListener("touchstart", function(e) {
+                    if (e.target == canvas) {
+                        e.preventDefault();
+                    }
+                }, false);
+                document.body.addEventListener("touchend", function(e) {
+                    if (e.target == canvas) {
+                        e.preventDefault();
+                    }
+                }, false);
+                document.body.addEventListener("touchmove", function(e) {
+                    if (e.target == canvas) {
+                        e.preventDefault();
+                    }
+                }, false);
+
+
+                //document.addEventListener('touchmove', onDocumentTouchMove, false);
                 var point = {};
                 point.notFirst = false;
                 canvas.setAttribute('width', canvasWidth);
@@ -92,7 +85,7 @@ class case_sign_E extends ActionHandler {
                 }
                 var context = canvas.getContext("2d");
 
-                $("canvas").bind("wheel mousewheel", function(e) { e.preventDefault() });
+
 
                 /*var ptrn = context.createPattern(img, 'no-repeat');
                 context.fillStyle = ptrn;
@@ -110,6 +103,7 @@ class case_sign_E extends ActionHandler {
 
                 canvas.addEventListener("touchstart", function(e) {
                     //console.log(e);
+                    e.preventDefault();
                     var mouseX = e.touches[0].pageX - this.offsetLeft;
                     var mouseY = e.touches[0].pageY - this.offsetTop;
                     paint = true;
@@ -122,7 +116,10 @@ class case_sign_E extends ActionHandler {
                     paint = false;
                 });
                 canvas.addEventListener("touchmove", function(e) {
+                    e.preventDefault();
                     if (paint) {
+
+                        $("#canvas").bind("wheel mousewheel", function(e) { e.preventDefault() });
                         //console.log("touchmove");
                         addClick(e.touches[0].pageX - this.offsetLeft, e.touches[0].pageY - this.offsetTop, true);
                         //console.log(e.touches[0].pageX - this.offsetLeft, e.touches[0].pageY - this.offsetTop);
@@ -159,8 +156,17 @@ class case_sign_E extends ActionHandler {
                     //$("#qmimg").attr("src", canvas.toDataURL("image/png"));
                     var image = canvas.toDataURL("image/jpg");
                     //base64.encode();
+                    var specialElementHandlers = {
+                        '#editor': function(element, renderer) {
+                            return true;
+                        }
+                    };
+                    // doc.fromHTML($('#body').html(), 15, 15, {
+                    //     'width': screenwidth,
+                    //     'elementHandlers': specialElementHandlers
+                    // });
                     //doc.addImage(image, 'JPEG', 0, 0, canvas.width, canvas.height);
-                    doc.addImage(image, 'JPEG', 0, 0);
+                    //doc.addImage(image, 'JPEG', 0, 0);
                     //doc.save('test.pdf');
                     $("#pdf").val(image);
                     (new case_do_unfinish_E('case', 'do_unfinish_E', 'unfinish_err', $("#case_id").data("value"), 'finish')).run();
@@ -238,8 +244,12 @@ class case_sign_E extends ActionHandler {
                         context.stroke();
                     }
                 }
+                // Prevent scrolling when touching the canvas
 
                 $(document).ready(function() {
+                    // $("canvas").bind("wheel mousewheel", function(e) { e.preventDefault() });
+                    // $("#canvas").bind("wheel mousewheel", function(e) { e.preventDefault() });
+                    // $("#sign_area").bind("wheel mousewheel", function(e) { e.preventDefault() });
                     // $("#do_sign").click(function() {
                     //     $("#signdiv").dialog("open");
 

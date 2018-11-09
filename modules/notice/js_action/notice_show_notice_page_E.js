@@ -9,71 +9,83 @@ class notice_show_notice_page_E extends ActionHandler {
     }
 
     ajax_success(xhttp) {
-        var data = null;
-        var allDatas = JSON.parse(xhttp.responseText);
-        console.log(allDatas);
+        var data = '';
+        var json_str = xhttp.responseText;
+        var obj = JSON.parse(json_str);
+        console.log(obj);
+        var ds = obj['data_set'];
+        this.loadModuleScript("case", "show_case_page_E");
         try {
-            if (allDatas['status_code'] === 0) {
-                for (var allData in allDatas['data_set']) {
-                    var buildingName = allDatas['data_set'][allData]['building'][0]['name'];
-                    var caseNamech = allDatas['data_set'][allData]['case']['namech'];
-                    var householdNumber = allDatas['data_set'][allData]['household'][0]['number'];
-                    var caseTitle = allDatas['data_set'][allData]['case']['title'];
+            if (obj['status_code'] === 0) {
+                for (var allData in obj['allnotice']) {
+                    // var buildingName = obj['allnotice'][allData]['building'][0]['name'];
+                    // var caseNamech = obj['allnotice'][allData]['case']['namech'];
+                    // var householdNumber = obj['allnotice'][allData]['household'][0]['number'];
+                    // var caseTitle = obj['dataset'][allData]['case']['title'];
 
-                    if (allDatas['data_set'][allData]['repair'] === []) {
-                        return;
-                    }
-                    for (var repair in allDatas['data_set'][allData]['repair']) {
-                        var startTime = allDatas['data_set'][allData]['case']['start_datetime'];
+                    // if (obj['allnotice'][allData]['repair'] === []) {
+                    //     return;
+                    // }
+                    // for (var repair in obj['allnotice'][allData]['repair']) {
+                    //     var startTime = obj['allnotice'][allData]['case']['start_datetime'];
 
 
-                        startTime = startTime.substring(0, 4) + "/" + startTime.substring(5, 7) + "/" + startTime.substring(8, 10);
-                        if (caseTitle.length > 6) {
-                            caseTitle = caseTitle.substring(0, 7) + "...";
-                        }
-                        else {
-                            caseTitle = caseTitle;
-                        }
+                    //     startTime = startTime.substring(0, 4) + "/" + startTime.substring(5, 7) + "/" + startTime.substring(8, 10);
+                    //     if (caseTitle.length > 6) {
+                    //         caseTitle = caseTitle.substring(0, 7) + "...";
+                    //     }
+                    //     else {
+                    //         caseTitle = caseTitle;
+                    //     }
 
-                        data = data + `
+                    data = data + `
                                  <div class="list-group font-weight-bold h3">
-                                      <a onclick="(new notice_show_select_page_E('notice','show_select_page_E','body','buildingName','startTime','householdNumber',)).run()">
-                                             `;
-                        if (allDatas['data_set'][allData]['case']['namech'] === "水電報修") {
-                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
-                        }
-                        else if (allDatas['data_set'][allData]['case']['namech'] === "電機相關") {
-                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
-                        }
-                        else if (allDatas['data_set'][allData]['case']['namech'] === "安裝工程") {
-                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
-                        }
-                        else if (allDatas['data_set'][allData]['case']['namech'] === "公設維修") {
-                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
-                        }
-                        else if (allDatas['data_set'][allData]['case']['namech'] === "家具維修") {
-                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
-                        }
-                        else if (allDatas['data_set'][allData]['case']['namech'] === "清潔服務") {
-                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
-                        }
-                        else if (allDatas['data_set'][allData]['case']['namech'] === "油漆工程") {
-                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
-                        }
-                        else if (allDatas['data_set'][allData]['case']['namech'] === "其他維修") {
-                            data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="width:13%;display:inline-block">${buildingName}</span><span class="text-center" style="displat:inline-block;width:18%;display:inline-block">${householdNumber}</span> ${caseTitle}<span class="float-right">${caseNamech} ${startTime}</span></div>`;
-                        }
-                        else {
-                            data = '查無值...';
-                        }
-                        data = data + `     
+                                      <a onclick="(new case_show_case_page_E('case','show_case_page_E','body','` + obj['allnotice'][allData]['case_profile_id'] + `')).run()">`;
+                    //data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="display:inline-block">` + ' ' + obj['allnotice'][allData]['title'] + ': ' + obj['allnotice'][allData]['namech'] + ' ' + obj['allnotice'][allData]['name'] + ' ' + obj['allnotice'][allData]['number'] + '  ' + st_time_to_date(obj['allnotice'][allData]['start_datetime']) + `</span> </div>`;
+                    if (obj['allnotice'][allData]['id'] == 1) { //水電
+
+                        data = data + `<div class="list-group-item list-group-item-info px-1"><span class="text-center" style="display:inline-block">` + ' ' + obj['allnotice'][allData]['title'] + ': ' + obj['allnotice'][allData]['namech'] + ' ' + obj['allnotice'][allData]['name'] + ' ' + obj['allnotice'][allData]['number'] + '  ' + st_time_to_date(obj['allnotice'][allData]['start_datetime']) + `</span> </div>`;
+
+                    }
+                    else if (obj['allnotice'][allData]['id'] == 2) { //電機
+                        data = data + `<div class="list-group-item list-group-item-secondary px-1"><span class="text-center" style="display:inline-block">` + ' ' + obj['allnotice'][allData]['title'] + ': ' + obj['allnotice'][allData]['namech'] + ' ' + obj['allnotice'][allData]['name'] + ' ' + obj['allnotice'][allData]['number'] + '  ' + st_time_to_date(obj['allnotice'][allData]['start_datetime']) + `</span> </div>`;
+                    }
+                    else if (obj['allnotice'][allData]['id'] == 3) { //安裝
+                        data = data + `<div class="list-group-item list-group-item-success px-1"><span class="text-center" style="display:inline-block">` + ' ' + obj['allnotice'][allData]['title'] + ': ' + obj['allnotice'][allData]['namech'] + ' ' + obj['allnotice'][allData]['name'] + ' ' + obj['allnotice'][allData]['number'] + '  ' + st_time_to_date(obj['allnotice'][allData]['start_datetime']) + `</span> </div>`;
+                    }
+                    else if (obj['allnotice'][allData]['id'] == 4) { //公設
+                        data = data + `<div class="list-group-item list-group-item-warning px-1"><span class="text-center" style="display:inline-block">` + ' ' + obj['allnotice'][allData]['title'] + ': ' + obj['allnotice'][allData]['namech'] + ' ' + obj['allnotice'][allData]['name'] + ' ' + obj['allnotice'][allData]['number'] + '  ' + st_time_to_date(obj['allnotice'][allData]['start_datetime']) + `</span> </div>`;
+                    }
+                    else if (obj['allnotice'][allData]['id'] == 5) { //家具
+                        data = data + `<div class="list-group-item list-group-item-primary px-1"><span class="text-center" style="display:inline-block">` + ' ' + obj['allnotice'][allData]['title'] + ': ' + obj['allnotice'][allData]['namech'] + ' ' + obj['allnotice'][allData]['name'] + ' ' + obj['allnotice'][allData]['number'] + '  ' + st_time_to_date(obj['allnotice'][allData]['start_datetime']) + `</span> </div>`;
+                    }
+                    else if (obj['allnotice'][allData]['id'] == 6) { //清潔
+                        data = data + `<div class="list-group-item list-group-item-light px-1"><span class="text-center" style="display:inline-block">` + ' ' + obj['allnotice'][allData]['title'] + ': ' + obj['allnotice'][allData]['namech'] + ' ' + obj['allnotice'][allData]['name'] + ' ' + obj['allnotice'][allData]['number'] + '  ' + st_time_to_date(obj['allnotice'][allData]['start_datetime']) + `</span> </div>`;
+                    }
+                    else if (obj['allnotice'][allData]['id'] == 7) { //油漆
+                        data = data + `<div class="list-group-item list-group-item-dark px-1"><span class="text-center" style="display:inline-block">` + ' ' + obj['allnotice'][allData]['title'] + ': ' + obj['allnotice'][allData]['namech'] + ' ' + obj['allnotice'][allData]['name'] + ' ' + obj['allnotice'][allData]['number'] + '  ' + st_time_to_date(obj['allnotice'][allData]['start_datetime']) + `</span> </div>`;
+                    }
+                    else if (obj['allnotice'][allData]['id'] == 8) { //其他
+                        data = data + `<div class="list-group-item list-group-item-danger px-1"><span class="text-center" style="display:inline-block">` + ' ' + obj['allnotice'][allData]['title'] + ': ' + obj['allnotice'][allData]['namech'] + ' ' + obj['allnotice'][allData]['name'] + ' ' + obj['allnotice'][allData]['number'] + '  ' + st_time_to_date(obj['allnotice'][allData]['start_datetime']) + `</span> </div>`;
+                    }
+                    else {
+                        data = '查無值...';
+                    }
+                    data = data + ` 
                                         </a> </div>`;
 
-                        data = data.slice(3);
+                    //data = data.slice(3);
 
-                    }
+
+
 
                 }
+
+                function st_time_to_date(tt1) {
+                    var tt3;
+                    tt3 = tt1.split(" ")[0].split("-")[0] + "/" + tt1.split(" ")[0].split("-")[1] + "/" + tt1.split(" ")[0].split("-")[2];
+                    return tt3;
+                };
             }
             else {
                 data = "<h1>目前無通知</h1>";

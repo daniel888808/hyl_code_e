@@ -42,14 +42,28 @@ class case_show_case_page_E extends ActionHandler {
                     </span>
                 </nav>
                 <!-- /.Navbar -->
-            </header>
-        
+            </header>`;
+
+                content += `
             <div class="container mt-4 pt-0 font30 px-0">
                 <div class="row border boxShadow mt-2">
                     <div class="col-12">
                         <div class="row">
                             <div class="col-4">
-                                <span>案名: ` + obj['construction_project'] + `</span>
+                                <span>案名: `;
+                if (obj['construction_project'] != null) {
+                    content += obj['construction_project'];
+                }
+                else {
+                    content += '找不到建案';
+                }
+                if (obj['case_data'][0]['status'] == 'cancel') {
+                    content += '(案件已取消)'
+                }
+                else {
+
+                }
+                content += `</span>
                             </div>
                             <div class="col-4">
                                 <span></span>
@@ -65,7 +79,11 @@ class case_show_case_page_E extends ActionHandler {
                                 <span>受理日期:</span>
                                 <br>
                                 <span>`;
-                content += st_time_to_min(obj['case_data'][0]['start_datetime']);
+                if (obj['case_data'][0]['start_datetime'] != null) {
+                    content += st_time_to_min(obj['case_data'][0]['start_datetime']);
+                }
+                else { content += '找不到起始時間'; }
+
                 content += `</span>
                             </div>
                             <div class="col-4">
@@ -84,7 +102,49 @@ class case_show_case_page_E extends ActionHandler {
                                 <span>保固期限:</span>
                                 <br>
                                 <span>`;
-                content += st_time_to_date(obj['warranty']);
+                if (obj['warranty'] != null) {
+                    content += st_time_to_date(obj['warranty']);
+                }
+                else {
+                    content += "無保固期限";
+                }
+                content += `</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-4">`;
+                if (obj['ifpf'] == "no") {
+                    content += `<span>戶號: ` + obj['household_data'][0]['number'] + `</span>`;
+                }
+                else if (obj['ifpf'] == "yes") {
+                    content += ` <span>戶號: 公共設施</span>`;
+                }
+                else {
+                    content += '找不到戶號';
+                }
+                content += `
+                                
+                            </div>
+                            <div class="col-4">
+                                <span>客戶名稱: `;
+                if (obj['user_data']['data_set'][0]['name'] != null) {
+                    content += obj['user_data']['data_set'][0]['name'];
+                }
+                else {
+                    content += '找不到客戶名稱'
+                }
+                content += `</span>
+                            </div>
+                            <div class="col-4">
+                                <span>工務主任: `;
+                if (obj['ename']) {
+                    content += obj['ename'];
+                }
+                else {
+                    content += '找不到工務主任'
+                }
                 content += `</span>
                             </div>
                         </div>
@@ -92,20 +152,14 @@ class case_show_case_page_E extends ActionHandler {
                     <div class="col-12">
                         <div class="row">
                             <div class="col-4">
-                                <span>戶號: ` + obj['household_data'][0]['number'] + `</span>
-                            </div>
-                            <div class="col-4">
-                                <span>客戶名稱: ` + obj['user_data']['data_set'][0]['name'] + `</span>
-                            </div>
-                            <div class="col-4">
-                                <span>工務主任: ` + obj['ename'] + `</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-4">
-                                <span>電話: ` + obj['user_data']['data_set'][0]['phone'] + `</span>
+                                <span>電話: `;
+                if (obj['user_data']['data_set'][0]['phone']) {
+                    content += obj['user_data']['data_set'][0]['phone'];
+                }
+                else {
+                    content += '找不到客戶電話'
+                }
+                content += `</span>
                             </div>
                             <div class="col-4">
         
@@ -118,7 +172,17 @@ class case_show_case_page_E extends ActionHandler {
                     <div class="col-12">
                         <div class="row">
                             <div class="col-12">
-                                <span>地址: ` + obj['household_data'][0]['address'] + `</span>
+                            `;
+                if (obj['ifpf'] == "no") {
+                    content += ` <span>地址: ` + obj['household_data'][0]['address'] + `</span>`;
+                }
+                else if (obj['ifpf'] == "yes") {
+                    content += ` <span>公設位置: ` + obj['pf_data'][0]['location'] + `</span>`;
+                }
+                else {
+                    content += `找不到地址`;
+                }
+                content += `
                             </div>
                         </div>
                     </div>
@@ -175,8 +239,31 @@ class case_show_case_page_E extends ActionHandler {
 
                     //if (obj['check_apply'] == "yes") {
                     content += `
-                                <div class=" mt-2 ">
-                                        <button type="button" class="btn btn-indigo font30" id="time_confirm">確認</button>
+                                <div class=" mt-2 row">
+                                        <div class="ml-1 mr-4"><button type="button" class="btn btn-indigo font30 px-4" id="time_confirm">確認</button></div>
+                                        <div class="ml-4 mr-1 "><button type="button" class="btn btn-danger font30 px-2" data-toggle="modal" data-target="#basicExampleModal">
+                                          案件取消
+                                        </button></div>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">取消案件</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    確定要取消此筆維修案件嗎?
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" id="cancel" data-dismiss="modal">案件取消</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                                 </div>`;
                     //}
                     content += `
@@ -187,16 +274,42 @@ class case_show_case_page_E extends ActionHandler {
                     `;
                     //onclick="(new case_do_confirm_E('case', 'do_confirm_E', 'body',` + obj['case_data'][0]['id'] + `,repaircompany_id,datetime)).run();"
                 }
-                else if (obj['check_finish'] != 10) {
+                else if (obj['check_finish'] != 10 && obj['case_data'][0]['status'] != 'cancel') {
                     content += `
                     <div id="sign" class="row"></div>
                         <div id="buttons">
                             <button type="button" class="btn btn-indigo font30" id="finish">完成維修</button>
                             <button type="button" class="btn btn-indigo font30" id="unfinish">待完成</button>
-                            <a href="index.html"><button type="button" class="btn btn-danger font30">案件退回</button></a>
+                            
+                            
                             <div id="unfinish_err"></div>
                         </div>`;
                 }
+                content += `<div class="ml-4 mr-1 "><button type="button" class="btn btn-danger font30 px-2" data-toggle="modal" data-target="#basicExampleModal1">
+                                          顯示圖片
+                                        </button></div>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade " id="basicExampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-fluid" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">圖片</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">`;
+                if (obj['case_img'] != null) {
+                    content += `<img src="${obj['case_img']}">`;
+                }
+                content += ` </div>
+                                  <div class="modal-footer">
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                            </div>`;
                 // content += `
                 //         <div class="col-12">
                 //             <div class="row">
@@ -210,7 +323,9 @@ class case_show_case_page_E extends ActionHandler {
                 //         </div>
                 //     </div>
                 //     `;
-
+                if (obj['sign_img'] != null) {
+                    content += `<div class="col-12 mt-2"><img src="${obj['sign_img']}"></div>`;
+                }
                 if (obj['check_finish'] == 10 && obj['case_data'][0]['user_rank'] != null) {
                     content += `
                     <div class="col-12 mt-2 ">
@@ -366,19 +481,25 @@ class case_show_case_page_E extends ActionHandler {
                 };
 
                 function check_repair_history(type) {
-                    document.getElementById("unfinish_err").innerHTML = '';
+                    if (type == "cancel") {
+                        (new case_do_unfinish_E('case', 'do_unfinish_E', 'unfinish_err', $("#case_id").data("value"), type)).run();
+                    }
+
+
                     if ($("#new_time").val() != null && $("#new_content").val() != null && $("#new_time").val() != "" && $("#new_content").val() != "") {
+
                         //console.log("new time " + $("#new_time").val());
                         if (type == "unfinish") {
 
                             (new case_do_unfinish_E('case', 'do_unfinish_E', 'unfinish_err', $("#case_id").data("value"), type)).run();
                         }
-                        else {
+                        else if (type == "finish") {
                             $("#contact").remove();
                             $("#buttons").remove();
                             (new case_sign_E('case', 'sign_E', 'sign')).run();
                             //(new case_do_unfinish_E('case', 'do_unfinish_E', 'unfinish_err', $("#case_id").data("value"), type)).run();
                         }
+
                     }
                     else {
                         document.getElementById("unfinish_err").innerHTML = '<font color="red" size="4">請輸入資料</font>';
@@ -393,12 +514,19 @@ class case_show_case_page_E extends ActionHandler {
                     );
                     $("#unfinish").click(
                         function() {
+                            document.getElementById("unfinish_err").innerHTML = '';
                             check_repair_history("unfinish");
                         }
                     );
                     $("#finish").click(
                         function() {
+                            document.getElementById("unfinish_err").innerHTML = '';
                             check_repair_history("finish");
+                        }
+                    );
+                    $("#cancel").click(
+                        function() {
+                            check_repair_history("cancel");
                         }
                     );
                 });

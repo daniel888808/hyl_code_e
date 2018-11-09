@@ -20,7 +20,7 @@
             $user_model = new user_profile_model();
             $repair_model= new repair_model();
             $repair_company_model=new repair_company_model();
-            
+            $check_finish=$case_model->get_something_from_case_profile("status","id=$case_id");
             $repair_history=$repair_model->get_something_from_repair_history("*","case_id=".$case_id." ORDER BY `repair_history_profile`.`reservetime` ASC");
             $repair_type=array();
             $repair_com=array();
@@ -28,12 +28,14 @@
                 $h = $repair_company_model->get_something_from_repair_company_profile("name","id=".$repair_history[$i]['repair_company_id']);
                 array_push($repair_com,$h[0][0]);
             }
+            $return_value["check_finish"]=$check_finish[0][0];
             $return_value['repair_history'] = $repair_history;
             $return_value['repair_com'] = $repair_com;
             $reservetime=$repair_model->check_reservetime($case_id);
             if($reservetime[0][0]!=null){
                 $return_value['status_code'] = 0;
                 $return_value['status_message'] = "已預約";
+                $return_value["check_histroy_length"]="yes";
             }else{
                 $return_value['status_code'] = 1;
                 if(sizeof($repair_history)>1){

@@ -1,7 +1,7 @@
 <?php
     require_once 'include/php/action_listener.php';
     require_once 'include/php/event_message.php';
-    require_once 'modules/user_profile/user_profile_api.php';
+    require_once 'modules/user_profile/user_profile_api_E.php';
     
     class show_home_page_E implements action_listener{
         public function actionPerformed(event_message $em) {

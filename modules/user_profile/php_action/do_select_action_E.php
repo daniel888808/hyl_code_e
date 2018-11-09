@@ -3,7 +3,7 @@
     require_once 'include/php/event_message.php';
     require_once 'modules/user_profile/php_action/user_profile_model.php';
     
-    class do_select_action implements action_listener{
+    class do_select_action_E implements action_listener{
         public function actionPerformed(event_message $em) {
 //             if(isset($_SESSION['useracc'])){
 // 			$userid=$_SESSION['userid'];
@@ -11,8 +11,12 @@
 // 		    $user_model = new user_profile_model();
 // 		    $user_info = $user_model->get_something_from_user_profile("*","user_profile.id=".$userid);
             $conn = PDO_mysql::getConnection();
-            $sql = "SELECT * FROM user_profile";
+            $sql = "SELECT user_profile.id,user_profile.account,user_profile.password,user_profile.name,user_profile.phone,user_profile.type FROM user_profile ";
             $post = $em->getPost();
+            $join=$post['join'];
+            if($join != ""){
+                $sql .= "$join";
+            }
             $where_statement = $post['where_statement'];
             if($where_statement != ""){
                 $sql .= " where $where_statement";

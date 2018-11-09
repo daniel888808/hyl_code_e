@@ -24,13 +24,12 @@ class repair_company_show_repair_company_E extends ActionHandler {
                 content += `
                 
 
-                                <table class="table cssraindemo1">
+                                <table class="table cssraindemo1 ">
                                 <thead>
                                     <tr>
                                         <th scope="col" class="px-2 font30">廠商名稱</th>
                                         <th scope="col" class="pl-2 font30">廠商電話</th>
                                         <th scope="col" class="pl-2 font30">詳細</th>
-                                    </tr>
                                     </thead>
                                     <tbody>`;
                 for (var i = 0; i < ds.length; i++) {

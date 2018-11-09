@@ -7,6 +7,8 @@ class login_show_login_page extends ActionHandler {
         this.php = false;
     }
     showResult() {
+        this.loadScript("include/lib/CryptoJSv3.1.2/rollups/aes.js", "CryptoJS_AES");
+
         var str = `
           <div class="container ">
         <div class="col-lg-6 col-md-6">
