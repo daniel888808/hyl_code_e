@@ -285,7 +285,8 @@ class case_show_case_page_E extends ActionHandler {
                             <div id="unfinish_err"></div>
                         </div>`;
                 }
-                content += `<div class="ml-4 mr-1 "><button type="button" class="btn btn-danger font30 px-2" data-toggle="modal" data-target="#basicExampleModal1">
+                if (obj['case_img'] != null) {
+                    content += `<div class="ml-4 mr-1 "><button type="button" class="btn btn-danger font30 px-2" data-toggle="modal" data-target="#basicExampleModal1">
                                           顯示圖片
                                         </button></div>
                             
@@ -299,34 +300,20 @@ class case_show_case_page_E extends ActionHandler {
                                       <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
-                                  <div class="modal-body">`;
-                if (obj['case_img'] != null) {
-                    content += `<img src="${obj['case_img']}">`;
-                }
-                content += ` </div>
+                                  <div class="modal-body"><img src="${obj['case_img']}"></div>
                                   <div class="modal-footer">
                                     
                                   </div>
                                 </div>
                               </div>
                             </div>`;
-                // content += `
-                //         <div class="col-12">
-                //             <div class="row">
-                //                 <div class="col-6">
-                //                     <span>工務副理: 姚明</span>
-                //                 </div>
-                //                 <div class="col-6">
-                //                     <span>維修經辦: ` + obj['ename'] + `</span>
-                //                 </div>
-                //             </div>
-                //         </div>
-                //     </div>
-                //     `;
+                }
                 if (obj['sign_img'] != null) {
                     content += `<div class="col-12 mt-2"><img src="${obj['sign_img']}"></div>`;
                 }
                 if (obj['check_finish'] == 10 && obj['case_data'][0]['user_rank'] != null) {
+
+
                     content += `
                     <div class="col-12 mt-2 ">
                         客戶評價:`;
@@ -337,15 +324,7 @@ class case_show_case_page_E extends ActionHandler {
                         else {
                             content += `<span class="fa fa-star"></span>`;
                         }
-                        // content += `
-                        //     <!--沒辦法就暫時用這個簡單版的 -->
-                        //     <span class="fa fa-star checked"></span>
-                        //     <span class="fa fa-star checked"></span>
-                        //     <span class="fa fa-star checked"></span>
-                        //     <span class="fa fa-star"></span>
-                        //     <span class="fa fa-star"></span>
-                        //     <!--沒辦法就暫時用這個簡單版的 -->
-                        //     `;
+
                     }
                     content += `
                     </div>

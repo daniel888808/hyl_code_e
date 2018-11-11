@@ -62,7 +62,8 @@
                 $case_model->update_case_profile("`status` = 'cancel'","id=$case_id");
                 $notice_model->insert_new_notice('cancel',$case_id,'您報修的案件已取消','案件取消通知');
             }
-           
+           $return_value['content']=$new_content;
+           $return_value['time']=$new_time;
             return json_encode($return_value);
         }        
     }
