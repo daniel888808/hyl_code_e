@@ -210,7 +210,7 @@ e_progress add time
             login
                 js_action
                     login_show_login_page.js
-                    login_do_login_action.js
+                    login_do_login_action_E.js
                 php_action
                     do_login_action.js
                 action_dispatcher.php
@@ -433,7 +433,7 @@ E/case.html維修單預約時間時段(已有日期 加工務主任手動輸入�
 
 login module
 1.modules/login/js_action/login_show_login_page.js
-2.modules/login/js_action/login_do_login_action.js
+2.modules/login/js_action/login_do_login_action_E.js
 3.modules/login/js_action/login_do_logout_action.js
 4.modules/login/php_action/do_login_action.php
 5.modules/login/php_action/do_logout_action.php

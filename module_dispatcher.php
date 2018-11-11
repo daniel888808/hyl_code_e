@@ -29,7 +29,7 @@
             else{
                 $module = 'login';
             }
-            if($get['module'] !== 'login' ||  $get['action'] !== 'do_login_action' ){
+            if($get['module'] !== 'login' ||  $get['action'] !== 'do_login_action_E' ){
                     try{
                         session_start();
                         if(!isset($_SESSION['user'])) throw new Exception("No user login.", 2);

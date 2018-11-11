@@ -11,7 +11,7 @@ class login_show_login_page extends ActionHandler {
 
         var str = `
           <div class="container ">
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-8 col-md-6" style="margin:0px auto;">
             <!-- Start your project here-->
             <section class="form-dark">
                 <!-- Material form login -->
@@ -39,7 +39,7 @@ class login_show_login_page extends ActionHandler {
                         </div>
 
                         <div class="text-center mb-3 col-md-12">
-                            <button type="button" class="btn btn-success btn-block btn-rounded z-depth-1" onclick="(new login_do_login_action('login','do_login_action','body')).run()">登入</button>
+                            <button type="button" class="btn btn-success btn-block btn-rounded z-depth-1" onclick="(new login_do_login_action_E('login','do_login_action','body')).run()">登入</button>
                         </div>
                     </form>
                 </div>
@@ -50,6 +50,6 @@ class login_show_login_page extends ActionHandler {
     </div>	`;
 
         document.getElementById(this.position_id).innerHTML = str;
-        this.loadModuleScript('login', 'do_login_action');
+        this.loadModuleScript('login', 'do_login_action_E');
     }
 }

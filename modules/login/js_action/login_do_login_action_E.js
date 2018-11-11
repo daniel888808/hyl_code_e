@@ -8,7 +8,7 @@ class login_do_login_action_E extends ActionHandler {
         this.php = true;
         this.addArgsbyid('account');
         var enpassword = $("#password").val();
-
+        //this.addArgs('device_token_e',$("#device_token_e").val());
         enpassword = CryptoJS.MD5(enpassword);
         //alert(enpassword);
         console.log(enpassword);

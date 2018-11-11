@@ -1,4 +1,4 @@
-class login_do_login_action extends ActionHandler {
+class login_do_login_action_E extends ActionHandler {
     constructor(module, action, position_id) {
         super(module, action);
         this.position_id = position_id;
@@ -9,6 +9,7 @@ class login_do_login_action extends ActionHandler {
         this.addArgsbyid('account');
         var enpassword = $("#password").val();
         enpassword = CryptoJS.MD5(enpassword);
+        //this.addArgs('device_token_e',$("#device_token_e").val());
         //alert(enpassword);
         //console.log(enpassword);
         this.addArgs('password', enpassword);

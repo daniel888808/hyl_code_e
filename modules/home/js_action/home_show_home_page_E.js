@@ -95,7 +95,6 @@ class home_show_home_page_E extends ActionHandler {
                     </li>
                     <li class="nav-item maxWith" onclick="(new notice_show_notice_page_E('notice', 'show_notice_page_E', 'notice')).run();">
                         <a href="#notice" id="noticeb" class="nav-link waves-light" data-toggle="tab" role="tab"><i class="fa fa-bell white-text fa-2x" aria-hidden="true"></i>
-                        <span class="counter">2</span>
                         </br>通知</a>
                     </li>
                 </ul>
@@ -170,8 +169,8 @@ class home_show_home_page_E extends ActionHandler {
 
             }
             else if (obj['status_code'] == 2) {
-                (new login_show_login_page("login", "show_login_page", "body")).run();
-                var script = this.loadModuleScript("login", "show_login_page");
+                (new login_show_login_page_E("login", "show_login_page_E", "body")).run();
+                var script = this.loadModuleScript("login", "show_login_page_E");
             }
             else {
                 console.log("Invalid status code " + obj['status_code']);
